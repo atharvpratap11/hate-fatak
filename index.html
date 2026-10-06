@@ -278,7 +278,7 @@
 
         <!-- Leaderboard & Karma Button -->
         <button id="leaderboard-btn" type="button" title="Top Scouts & Leaderboard" class="h-8 px-2 sm:px-2.5 bg-amber-500/15 hover:bg-amber-500/25 active:scale-95 transition rounded-[10px] border border-amber-500/30 text-amber-300 hover:text-amber-200 flex items-center gap-1.5 shadow-sm">
-          <span class="text-xs">🏆</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"></path><path d="M6 5h12v4c0 3.31-2.69 6-6 6s-6-2.69-6-6V5z"></path></svg>
           <span id="header-user-xp-badge" class="font-mono text-[11px] font-bold text-amber-300">20 XP</span>
         </button>
 
@@ -986,8 +986,8 @@
       <!-- Modal Header -->
       <div class="p-4 sm:p-5 border-b border-slate-800 bg-slate-950/70 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 text-lg font-black shrink-0">
-            🚦
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3" stroke-width="2"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="17" r="1.5" fill="currentColor"/></svg>
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
@@ -1008,7 +1008,9 @@
         <!-- Section 1: How It Works (Ground Truth) -->
         <div class="p-3.5 sm:p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-2">
           <div class="flex items-center gap-2 font-bold text-white text-xs sm:text-sm">
-            <span class="text-emerald-400 text-base">👥</span>
+            <span class="text-emerald-400 flex items-center justify-center">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </span>
             <span>1. How Live Verification Works (Crowd Ground Truth)</span>
           </div>
           <p class="text-slate-300 text-[11px] sm:text-xs">
@@ -1033,7 +1035,9 @@
         <!-- Section 2: How It Predicts -->
         <div class="p-3.5 sm:p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-2">
           <div class="flex items-center gap-2 font-bold text-white text-xs sm:text-sm">
-            <span class="text-blue-400 text-base">🤖</span>
+            <span class="text-blue-400 flex items-center justify-center">
+              <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2"/><rect x="9" y="9" width="6" height="6" stroke-width="2"/><line x1="9" y1="1" x2="9" y2="4" stroke-width="2"/><line x1="15" y1="1" x2="15" y2="4" stroke-width="2"/><line x1="9" y1="20" x2="9" y2="23" stroke-width="2"/><line x1="15" y1="20" x2="15" y2="23" stroke-width="2"/><line x1="20" y1="9" x2="23" y2="9" stroke-width="2"/><line x1="20" y1="14" x2="23" y2="14" stroke-width="2"/><line x1="1" y1="9" x2="4" y2="9" stroke-width="2"/><line x1="1" y1="14" x2="4" y2="14" stroke-width="2"/></svg>
+            </span>
             <span>2. How Gate Predictions Work (AI & Timetable Engine)</span>
           </div>
           <p class="text-slate-300 text-[11px] sm:text-xs">
@@ -1062,7 +1066,9 @@
         <!-- Section 3: Safety Guidelines & Disclaimer -->
         <div class="p-3.5 sm:p-4 rounded-xl bg-amber-950/20 border border-amber-800/40 space-y-2">
           <div class="flex items-center gap-2 font-bold text-amber-300 text-xs sm:text-sm">
-            <span class="text-amber-400 text-base">⚠️</span>
+            <span class="text-amber-400 flex items-center justify-center">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </span>
             <span>3. Critical Safety Rules — Physical Reality Takes Precedence</span>
           </div>
           <ul class="space-y-1.5 text-[11px] sm:text-xs text-slate-300 pl-1">
@@ -1080,7 +1086,9 @@
         <!-- Section 4: Privacy & BYOK Transparency -->
         <div class="p-3.5 sm:p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-2">
           <div class="flex items-center gap-2 font-bold text-white text-xs sm:text-sm">
-            <span class="text-purple-400 text-base">🔒</span>
+            <span class="text-purple-400 flex items-center justify-center">
+              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </span>
             <span>4. Privacy & Zero Data Leak Commitment</span>
           </div>
           <ul class="space-y-1.5 text-[11px] sm:text-xs text-slate-300 pl-1">
@@ -1120,8 +1128,8 @@
       <!-- Modal Header -->
       <div class="p-3.5 sm:p-4 border-b border-slate-800 bg-slate-950/80 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-amber-500/25 text-xl font-black shrink-0">
-            🏆
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-amber-500/25 shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34M6 5h12v4c0 3.31-2.69 6-6 6s-6-2.69-6-6V5z"/></svg>
           </div>
           <div>
             <div class="flex items-center gap-2">
@@ -1140,15 +1148,15 @@
       <div class="px-3.5 sm:px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 shrink-0 space-y-2">
         <div class="flex items-center justify-between">
           <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Select City / Region:</span>
-          <span id="city-active-badge" class="text-[10px] text-blue-400 font-mono font-medium">📍 Fatehpur active</span>
+          <span id="city-active-badge" class="text-[10px] text-blue-400 font-mono font-medium">Fatehpur active</span>
         </div>
         <div id="city-selector-pills" class="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-xs">
-          <button type="button" class="city-pill-btn active px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-blue-600 text-white shadow-md shadow-blue-500/20 border border-blue-400/40" data-city="Fatehpur">📍 Fatehpur</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Kanpur">📍 Kanpur</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Lucknow">📍 Lucknow</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Prayagraj">📍 Prayagraj</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Delhi NCR">📍 Delhi NCR</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="All Cities">🌐 All Cities</button>
+          <button type="button" class="city-pill-btn active px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-blue-600 text-white shadow-md shadow-blue-500/20 border border-blue-400/40" data-city="Fatehpur">Fatehpur</button>
+          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Kanpur">Kanpur</button>
+          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Lucknow">Lucknow</button>
+          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Prayagraj">Prayagraj</button>
+          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Delhi NCR">Delhi NCR</button>
+          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="All Cities">All Cities</button>
         </div>
       </div>
 
@@ -1159,7 +1167,7 @@
         <div class="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-slate-950 to-slate-900 border border-amber-500/30 shadow-lg space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-              <div id="scout-badge-icon" class="text-2xl">🥈</div>
+              <div id="scout-badge-icon" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono font-bold text-xs border border-amber-500/40">L2</div>
               <div>
                 <div class="flex items-center gap-2">
                   <span id="scout-alias-display" class="font-bold text-white text-sm">Scout #47</span>
@@ -1201,7 +1209,7 @@
             </div>
             <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
               <div class="text-[9px] text-slate-400 uppercase font-semibold">Streak</div>
-              <div id="scout-stat-streak" class="text-xs font-bold text-amber-400 font-mono mt-0.5">🔥 1d</div>
+              <div id="scout-stat-streak" class="text-xs font-bold text-amber-400 font-mono mt-0.5">1d</div>
             </div>
             <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
               <div class="text-[9px] text-slate-400 uppercase font-semibold">Strikes</div>
@@ -1288,7 +1296,9 @@
         <!-- Anti-Vandalism & Slashing Rules Card -->
         <div id="rules" class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-[11px]">
           <div class="flex items-center gap-2 font-bold text-slate-200">
-            <span class="text-blue-400">🛡️</span>
+            <span class="text-blue-400 flex items-center justify-center">
+              <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
             <span>How Karma, 5-Vote Consensus & Anti-Fraud Slashing Work</span>
           </div>
           <ul class="space-y-1.5 text-slate-400 pl-1">
@@ -1672,10 +1682,10 @@
     // 5C. Scout Gamification, Karma & Byzantine Anti-Fraud Slashing Engine
     // --------------------------------------------------------------------------
     const SCOUT_LEVELS = [
-      { minXp: 0, title: "Gate Scout", badge: "🥉", weight: 0.8, nextXp: 100 },
-      { minXp: 100, title: "Track Guardian", badge: "🥈", weight: 1.0, nextXp: 500 },
-      { minXp: 500, title: "Signal Master", badge: "🥇", weight: 1.25, nextXp: 2000 },
-      { minXp: 2000, title: "Fatak Legend", badge: "👑", weight: 1.5, nextXp: 10000 }
+      { minXp: 0, title: "Gate Scout", badge: "L1", weight: 0.8, nextXp: 100 },
+      { minXp: 100, title: "Track Guardian", badge: "L2", weight: 1.0, nextXp: 500 },
+      { minXp: 500, title: "Signal Master", badge: "L3", weight: 1.25, nextXp: 2000 },
+      { minXp: 2000, title: "Fatak Legend", badge: "L4", weight: 1.5, nextXp: 10000 }
     ];
 
     function getScoutProfile() {
@@ -1736,10 +1746,10 @@
       saveScoutProfile(profile);
 
       if (amount > 0) {
-        showToast(`+${amount} XP: ${reason}! ${newLevel.badge} Total: ${profile.xp} XP`);
+        showToast(`+${amount} XP: ${reason}! [${newLevel.badge}] Total: ${profile.xp} XP`);
       }
       if (newLevel.title !== oldLevel.title && profile.xp > oldLevel.minXp) {
-        showToast(`🎉 Level Up! You are now a ${newLevel.badge} ${newLevel.title}!`);
+        showToast(`Level Up! You are now a [${newLevel.badge}] ${newLevel.title}!`);
       }
     }
 
@@ -1758,7 +1768,7 @@
       }
 
       saveScoutProfile(profile);
-      showToast(`⚠️ Slashing Penalty: -${amount} XP (${reason}). Strike ${profile.strikeCount}/3.`, true);
+      showToast(`Slashing Penalty: -${amount} XP (${reason}). Strike ${profile.strikeCount}/3.`, true);
     }
 
     function processVotesConsensus(votesList) {
@@ -4807,7 +4817,7 @@
       if (statRel) statRel.textContent = `${Math.round((profile.reliabilityScore || 1.0) * 100)}%`;
 
       const statStreak = document.getElementById('scout-stat-streak');
-      if (statStreak) statStreak.textContent = `🔥 ${profile.streakDays || 1}d`;
+      if (statStreak) statStreak.textContent = `${profile.streakDays || 1}d`;
 
       const statStrikes = document.getElementById('scout-stat-strikes');
       if (statStrikes) {
@@ -4827,7 +4837,7 @@
       // Update city active badge in bar
       const cityBadge = document.getElementById('city-active-badge');
       if (cityBadge) {
-        cityBadge.textContent = `📍 ${cityData.name} active (${cityData.gatesCount} gates)`;
+        cityBadge.textContent = `${cityData.name} active (${cityData.gatesCount} gates)`;
       }
 
       // Update City selector pill button active classes
@@ -4864,7 +4874,7 @@
 
       listEl.innerHTML = scouts.map((scout, idx) => {
         const rank = idx + 1;
-        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
+        const medal = `#${rank}`;
         const isSelf = scout.isUser;
         const rowBg = isSelf ? 'bg-amber-500/15 border-amber-500/40 text-white shadow-sm' : 'bg-slate-950/50 border-slate-800 text-slate-300';
 
@@ -4877,7 +4887,7 @@
                   <span>${escapeHtml(scout.alias)}</span>
                   ${isSelf ? '<span class="px-1.5 py-0.2 text-[9px] bg-amber-500/30 text-amber-300 rounded font-bold">YOU</span>' : ''}
                 </div>
-                <div class="text-[10px] text-slate-400">🔥 ${scout.streak}d streak • ${scout.reliability}% reliability</div>
+                <div class="text-[10px] text-slate-400">${scout.streak}d streak • ${scout.reliability}% reliability</div>
               </div>
             </div>
             <div class="text-right font-mono font-bold text-xs text-amber-300">
