@@ -666,11 +666,10 @@
     </div>
   </div>
 
-  <!-- Settings & BYOK Integration Modal (Redesigned with generous whitespace, tabs, and zero scrollbar) -->
-  <!-- Settings & BYOK Integration Bottom Sheet / Modal (Slide-up physics matching crossing detail sheet with toned-down font sizes) -->
-  <div id="settings-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[2990] hidden opacity-0 transition-opacity duration-300" onclick="closeSettingsModal()"></div>
-  <div id="settings-modal" class="fixed bottom-0 left-0 right-0 sm:inset-0 z-[3000] hidden sm:flex items-end sm:items-center justify-center p-0 sm:p-4 pointer-events-none">
-    <div id="settings-card" class="sheet-transition pointer-events-auto floating-glass rounded-t-[32px] sm:rounded-[24px] w-full max-w-xl p-5 sm:p-6 shadow-2xl max-h-[88vh] flex flex-col transform translate-y-full sm:translate-y-0 transition-transform no-scrollbar">
+  <!-- Settings & BYOK Integration Bottom Sheet / Modal (Slide-up on mobile, centered modal on PC) -->
+  <div id="settings-backdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[3490] hidden opacity-0 transition-opacity duration-300" onclick="closeSettingsModal()"></div>
+  <div id="settings-modal" class="fixed inset-0 z-[3500] hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div id="settings-card" class="sheet-transition floating-glass rounded-t-[32px] sm:rounded-[24px] w-full max-w-xl p-5 sm:p-6 shadow-2xl max-h-[88vh] flex flex-col transform translate-y-full sm:translate-y-0 transition-transform no-scrollbar">
       
       <!-- Mobile Drag Handle -->
       <div id="settings-drag-handle" class="sm:hidden w-full flex flex-col items-center justify-center py-1 -mt-2 mb-2 cursor-grab active:cursor-grabbing">
@@ -3032,6 +3031,7 @@
 
       if (settingsModal) {
         settingsModal.classList.remove('hidden');
+        settingsModal.classList.add('flex');
       }
 
       if (settingsCard) {
@@ -3055,7 +3055,10 @@
         }, 300);
       }
       setTimeout(() => {
-        if (settingsModal) settingsModal.classList.add('hidden');
+        if (settingsModal) {
+          settingsModal.classList.add('hidden');
+          settingsModal.classList.remove('flex');
+        }
         if (settingsCard) settingsCard.style.transform = '';
       }, 300);
     }
