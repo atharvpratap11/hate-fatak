@@ -143,9 +143,12 @@
       background: #0f172a;
     }
 
-    /* True Dark Mode for OpenStreetMap tiles without switching providers */
+    /* True Dark Mode for OpenStreetMap tiles without shifting provider */
+    .map-tiles-dark .leaflet-tile-pane,
+    .map-tiles-dark .leaflet-tile-container img,
     .map-tiles-dark .leaflet-tile {
-      filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+      filter: brightness(0.65) invert(1) contrast(2.8) hue-rotate(200deg) saturate(0.35) !important;
+      -webkit-filter: brightness(0.65) invert(1) contrast(2.8) hue-rotate(200deg) saturate(0.35) !important;
     }
 
     /* User Location Radar Pulse */
@@ -1813,7 +1816,7 @@
         }).addTo(map);
 
         // Apply dark mode CSS inversion filter directly on the OpenStreetMap tiles
-        const mapContainer = document.getElementById('map');
+        const mapContainer = map.getContainer() || document.getElementById('map');
         if (mapContainer) {
           if (isDark) {
             mapContainer.classList.add('map-tiles-dark');
@@ -1836,7 +1839,6 @@
         const nextDark = !isMapDarkMode();
         localStorage.setItem('map_dark_mode', String(nextDark));
         applyConfiguredMapProvider();
-        showToast(nextDark ? "Map theme: Dark Mode" : "Map theme: Light Mode");
       });
     }
 
