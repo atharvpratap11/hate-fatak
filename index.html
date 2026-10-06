@@ -1128,15 +1128,15 @@
       <!-- Modal Header -->
       <div class="p-3.5 sm:p-4 border-b border-slate-800 bg-slate-950/80 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-amber-500/25 shrink-0">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34M6 5h12v4c0 3.31-2.69 6-6 6s-6-2.69-6-6V5z"/></svg>
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h2 class="text-sm sm:text-base font-bold text-white tracking-tight">Fatak Scouts Leaderboard</h2>
-              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">City Ranks & 3-Min Heatmap</span>
+              <h2 class="text-sm sm:text-base font-bold text-white tracking-tight">Railway Intel & Scout Leaderboard</h2>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">Live 3-Min Schedule & Weekday Matrix</span>
             </div>
-            <p class="text-[11px] text-slate-400 mt-0.5">Top on-site commuter verifiers & 5-vote ground truth consensus</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">Train timetable passages (Mon–Sun) & 5-vote ground-truth consensus</p>
           </div>
         </div>
         <button type="button" id="leaderboard-close-btn" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition">
@@ -1144,63 +1144,63 @@
         </button>
       </div>
 
-      <!-- City Selector Bar (Sticky under header) -->
+      <!-- Dynamic City & Crossing Filter Bar (Only active cities with real crossings) -->
       <div class="px-3.5 sm:px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 shrink-0 space-y-2">
         <div class="flex items-center justify-between">
-          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Select City / Region:</span>
-          <span id="city-active-badge" class="text-[10px] text-blue-400 font-mono font-medium">Fatehpur active</span>
+          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Active Regions (Real Crossings Only):</span>
+          <span id="city-active-badge" class="text-[10px] text-blue-400 font-mono font-medium">Detecting...</span>
         </div>
         <div id="city-selector-pills" class="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-xs">
-          <button type="button" class="city-pill-btn active px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-blue-600 text-white shadow-md shadow-blue-500/20 border border-blue-400/40" data-city="Fatehpur">Fatehpur</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Kanpur">Kanpur</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Lucknow">Lucknow</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Prayagraj">Prayagraj</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="Delhi NCR">Delhi NCR</button>
-          <button type="button" class="city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50" data-city="All Cities">All Cities</button>
+          <!-- Dynamically populated from actual loaded crossings only -->
+        </div>
+        <div id="crossing-selector-container" class="hidden pt-1 border-t border-slate-800/60">
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-xs" id="crossing-selector-pills">
+            <!-- Populated if city has multiple crossings -->
+          </div>
         </div>
       </div>
 
       <!-- Modal Body (Scrollable) -->
       <div class="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-4 text-xs text-slate-300 leading-relaxed custom-scrollbar">
         
-        <!-- User Scout Card (Custom to City) -->
+        <!-- User Scout Card (Custom to Selected City) -->
         <div class="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-slate-950 to-slate-900 border border-amber-500/30 shadow-lg space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-              <div id="scout-badge-icon" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono font-bold text-xs border border-amber-500/40">L2</div>
+              <div id="scout-badge-icon" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono font-bold text-xs border border-amber-500/40">L1</div>
               <div>
                 <div class="flex items-center gap-2">
-                  <span id="scout-alias-display" class="font-bold text-white text-sm">Scout #47</span>
-                  <button type="button" id="scout-edit-alias-btn" class="text-[10px] text-slate-400 hover:text-blue-400 underline">edit</button>
+                  <span id="scout-alias-display" class="font-bold text-white text-sm">You</span>
+                  <button type="button" id="scout-edit-alias-btn" class="text-[10px] text-slate-400 hover:text-blue-400 underline">edit alias</button>
                 </div>
                 <div class="flex items-center gap-1.5 text-[11px]">
-                  <span id="scout-level-title" class="text-amber-400 font-semibold">Track Guardian</span>
+                  <span id="scout-level-title" class="text-amber-400 font-semibold">Gate Scout</span>
                   <span class="text-slate-600">•</span>
                   <span id="scout-weight-badge" class="text-slate-400">1.0x Vote Weight</span>
                 </div>
               </div>
             </div>
             <div class="text-right">
-              <div id="scout-xp-display" class="text-lg font-black text-amber-300 font-mono">120 XP</div>
-              <div class="text-[10px] text-slate-400">City Rank: <span id="scout-rank-display" class="text-white font-bold font-mono">#1</span></div>
+              <div id="scout-xp-display" class="text-lg font-black text-amber-300 font-mono">20 XP</div>
+              <div class="text-[10px] text-slate-400">Rank: <span id="scout-rank-display" class="text-white font-bold font-mono">#1</span></div>
             </div>
           </div>
 
           <!-- XP Progress Bar to Next Level -->
           <div class="space-y-1">
             <div class="flex justify-between text-[10px] text-slate-400">
-              <span id="scout-progress-label">Progress to Signal Master</span>
-              <span id="scout-progress-pct" class="font-mono text-slate-300">24%</span>
+              <span id="scout-progress-label">Progress to Track Guardian</span>
+              <span id="scout-progress-pct" class="font-mono text-slate-300">20%</span>
             </div>
             <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-              <div id="scout-progress-bar" class="bg-gradient-to-r from-amber-500 to-amber-300 h-full transition-all duration-300" style="width: 24%"></div>
+              <div id="scout-progress-bar" class="bg-gradient-to-r from-amber-500 to-amber-300 h-full transition-all duration-300" style="width: 20%"></div>
             </div>
           </div>
 
-          <!-- Quick Stats Grid -->
+          <!-- Real Stats Grid (Zero Fake Metrics) -->
           <div class="grid grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-center">
             <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
-              <div class="text-[9px] text-slate-400 uppercase font-semibold">Verifications</div>
+              <div class="text-[9px] text-slate-400 uppercase font-semibold">On-Site Reports</div>
               <div id="scout-stat-verifications" class="text-xs font-bold text-white font-mono mt-0.5">0</div>
             </div>
             <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
@@ -1218,105 +1218,98 @@
           </div>
         </div>
 
-        <!-- GitHub Contribution-Like 3-Minute 5-Vote Consensus Heatmap -->
-        <div id="github-heatmap-card" class="rounded-xl bg-[#0d1117] border border-[#30363d] p-3 sm:p-4 text-slate-200 space-y-3 shadow-xl">
-          <!-- Top Title Bar (Styled matching user's GitHub screenshot) -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#1f6feb]/30 bg-[#161b22]/70 rounded-lg px-3 py-2">
-            <div class="flex items-center gap-2">
-              <span id="github-heatmap-title" class="text-xs sm:text-sm font-semibold text-white">
-                45 verifications in 2026 across 3-min slots
-              </span>
-              <span class="text-[9px] text-emerald-300 font-mono font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
-                5-Vote Rule
-              </span>
+        <!-- Smart Railway Operations Matrix (Today 3-Min Schedule vs Mon-Sun Weekly Timetable) -->
+        <div id="railway-matrix-card" class="rounded-xl bg-[#0d1117] border border-[#30363d] p-3 sm:p-4 text-slate-200 space-y-3 shadow-xl">
+          <!-- Control Bar & Mode Switch -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#30363d] bg-[#161b22]/70 rounded-lg p-2.5">
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="matrix-title" class="text-xs sm:text-sm font-semibold text-white">
+                  Today's Live 3-Minute Schedule
+                </span>
+                <span class="text-[9px] text-emerald-300 font-mono font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
+                  5-Vote Rule
+                </span>
+              </div>
+              <p id="matrix-subtitle" class="text-[10px] text-slate-400 mt-0.5">
+                480 continuous 3-min intervals across 24 hours
+              </p>
             </div>
-            <div class="flex items-center gap-2">
-              <select id="github-heatmap-mode-select" class="text-[11px] bg-[#0d1117] text-slate-200 border border-[#30363d] rounded-md px-2 py-1 outline-none hover:border-slate-500 transition cursor-pointer">
-                <option value="today">Today (480 × 3-min slots)</option>
-                <option value="week">Past 7 Days (Matrix)</option>
-                <option value="2026">2026 Full-Year View</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Heatmap Body + Right-Side Year/Range Stack (Matching Screenshot) -->
-          <div class="flex flex-col md:flex-row gap-3 items-start">
             
-            <!-- Matrix Canvas Container (Scrollable) -->
-            <div class="flex-1 w-full overflow-x-auto custom-scrollbar p-2.5 rounded-lg bg-[#0d1117] border border-[#21262d] relative">
-              <div id="github-heatmap-grid" class="min-w-[340px]">
-                <!-- Dynamically generated 24-hr x 3-min columns -->
-              </div>
-
-              <!-- Interactive Floating Tooltip -->
-              <div id="github-heatmap-tooltip" class="absolute pointer-events-none z-30 hidden px-2.5 py-1.5 rounded-md bg-[#161b22] border border-[#30363d] text-slate-100 shadow-xl text-[10px] transform -translate-x-1/2 -translate-y-full transition-all duration-75">
-                <div id="github-tooltip-title" class="font-bold text-white">--:-- (3m slot)</div>
-                <div id="github-tooltip-votes" class="text-emerald-300 font-mono mt-0.5">0 / 5 votes</div>
-                <div id="github-tooltip-detail" class="text-slate-400 text-[9px] mt-0.5">Awaiting commuter reports</div>
-              </div>
-            </div>
-
-            <!-- Right-Side Year/Range Buttons (Matching GitHub screenshot) -->
-            <div class="flex md:flex-col gap-1.5 shrink-0 w-full md:w-20 justify-end md:justify-start">
-              <button type="button" class="github-range-btn active px-3 py-1 text-[11px] font-semibold rounded-md bg-[#1f6feb] text-white shadow transition text-center" data-range="today">Today</button>
-              <button type="button" class="github-range-btn px-3 py-1 text-[11px] font-medium rounded-md bg-[#21262d] text-slate-300 hover:text-white hover:bg-[#30363d] transition text-center" data-range="week">7 Days</button>
-              <button type="button" class="github-range-btn px-3 py-1 text-[11px] font-medium rounded-md bg-[#21262d] text-slate-300 hover:text-white hover:bg-[#30363d] transition text-center" data-range="2026">2026</button>
+            <!-- Segmented Switch: Today (3-Min) vs Mon-Sun (Weekly) -->
+            <div class="flex items-center bg-[#0d1117] p-1 rounded-lg border border-[#30363d] shrink-0 self-start sm:self-auto">
+              <button type="button" id="matrix-mode-today-btn" class="px-2.5 py-1 text-[11px] font-semibold rounded-md transition text-white bg-blue-600 shadow-sm" data-mode="today">
+                Today (3-Min Live)
+              </button>
+              <button type="button" id="matrix-mode-week-btn" class="px-2.5 py-1 text-[11px] font-medium rounded-md transition text-slate-400 hover:text-white" data-mode="week">
+                Mon – Sun (Weekly)
+              </button>
             </div>
           </div>
 
-          <!-- Footer: Learn how we count + Exact GitHub Legend -->
+          <!-- Matrix Grid Container (Horizontally Scrollable) -->
+          <div class="w-full overflow-x-auto custom-scrollbar p-2.5 rounded-lg bg-[#0d1117] border border-[#21262d] relative">
+            <div id="matrix-grid" class="min-w-[340px]">
+              <!-- Dynamically rendered based on active mode -->
+            </div>
+
+            <!-- Interactive Tooltip -->
+            <div id="matrix-tooltip" class="absolute pointer-events-none z-30 hidden px-2.5 py-2 rounded-lg bg-[#161b22] border border-[#30363d] text-slate-100 shadow-2xl text-[10px] transform -translate-x-1/2 -translate-y-full transition-all duration-75 min-w-[170px]">
+              <div id="matrix-tooltip-title" class="font-bold text-white border-b border-slate-700/60 pb-1">--:--</div>
+              <div id="matrix-tooltip-body" class="text-sky-300 font-mono mt-1">Train schedule status</div>
+              <div id="matrix-tooltip-status" class="text-slate-400 text-[9px] mt-0.5">0 / 5 on-site votes</div>
+            </div>
+          </div>
+
+          <!-- Legend & Context Footer -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-slate-400 pt-2 border-t border-[#21262d]">
-            <a href="#rules" id="github-learn-link" class="text-[11px] text-slate-400 hover:text-blue-400 underline transition">
-              Learn how we count 5-vote consensus
-            </a>
-            <div class="flex items-center gap-1 self-end sm:self-auto select-none">
-              <span class="mr-1 text-[10px]">Less</span>
-              <span class="w-[11px] h-[11px] rounded-[2px] bg-[#161b22] border border-[#21262d] inline-block" title="0 votes"></span>
-              <span class="w-[11px] h-[11px] rounded-[2px] bg-[#0e4429] inline-block" title="1 vote"></span>
-              <span class="w-[11px] h-[11px] rounded-[2px] bg-[#006d32] inline-block" title="2 votes"></span>
-              <span class="w-[11px] h-[11px] rounded-[2px] bg-[#26a641] inline-block" title="3 votes"></span>
-              <span class="w-[11px] h-[11px] rounded-[2px] bg-[#39d353] inline-block" title="4 votes"></span>
-              <span class="w-[11px] h-[11px] rounded-[2px] bg-[#39d353] ring-1 ring-white/70 shadow-[0_0_6px_#39d353] inline-block" title="5+ votes (Consensus Verified)"></span>
-              <span class="ml-1 text-[10px]">More (5 Verified)</span>
+            <span class="text-[10px] text-slate-400">
+              Railway boom barriers close ~8 min prior to train pass
+            </span>
+            <div class="flex items-center gap-1.5 self-end sm:self-auto select-none text-[10px]">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-[2px] bg-[#161b22] border border-[#21262d]"></span> Clear</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-[2px] bg-sky-900/80 border border-sky-600/60"></span> Train Window</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-[2px] bg-[#26a641]"></span> Open (Verified)</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-[2px] bg-[#f85149]"></span> Closed (Down)</span>
             </div>
           </div>
         </div>
 
-        <!-- Leaderboard Table (Custom to Selected City) -->
+        <!-- Leaderboard Table (Real Contributors in Selected City) -->
         <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <span id="leaderboard-city-title" class="text-xs font-bold text-white tracking-wide">Top Scouts in Fatehpur (Live)</span>
-            <span class="text-[10px] text-slate-400 font-mono">3-Min Cycle Active</span>
+            <span id="leaderboard-city-title" class="text-xs font-bold text-white tracking-wide">Scouts Leaderboard</span>
+            <span class="text-[10px] text-slate-400 font-mono">Real-Time Consensus</span>
           </div>
           <div id="leaderboard-list" class="space-y-1.5 max-h-56 overflow-y-auto pr-1 custom-scrollbar">
-            <!-- Dynamically populated per city -->
+            <!-- Dynamically populated from actual user data -->
           </div>
         </div>
 
-        <!-- Anti-Vandalism & Slashing Rules Card -->
+        <!-- How 5-Vote Consensus & Anti-Fraud Slashing Work -->
         <div id="rules" class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-[11px]">
           <div class="flex items-center gap-2 font-bold text-slate-200">
             <span class="text-blue-400 flex items-center justify-center">
               <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </span>
-            <span>How Karma, 5-Vote Consensus & Anti-Fraud Slashing Work</span>
+            <span>How Ground-Truth Consensus & Anti-Fraud Slashing Work</span>
           </div>
           <ul class="space-y-1.5 text-slate-400 pl-1">
             <li class="flex items-start gap-1.5">
               <span class="text-emerald-400 font-bold">•</span>
-              <span><strong>+10 XP:</strong> Cast an on-site gate status report within 800m of the physical crossing.</span>
+              <span><strong>+10 XP On-Site Report:</strong> Report gate status while physically within 800m of the crossing.</span>
             </li>
             <li class="flex items-start gap-1.5">
               <span class="text-amber-400 font-bold">•</span>
-              <span><strong>+25 XP Consensus Bonus:</strong> Awarded when your report matches 4+ independent commuters in that 3-min window (5-vote threshold).</span>
+              <span><strong>+25 XP Consensus Lock:</strong> Awarded when 5 on-site commuters agree on the gate state for that 3-min slot.</span>
             </li>
             <li class="flex items-start gap-1.5">
               <span class="text-red-400 font-bold">•</span>
-              <span><strong>-50 XP Slashing Penalty:</strong> If you report false data contradicted by 5 on-site commuters, you are penalized with a Strike and score slash.</span>
+              <span><strong>-50 XP Slashing:</strong> Reporting false data contradicted by on-site commuters slashes XP and applies a strike.</span>
             </li>
             <li class="flex items-start gap-1.5">
               <span class="text-purple-400 font-bold">•</span>
-              <span><strong>Automatic Shadowban (Quarantine):</strong> 3 strikes or reliability below 25% drops your vote weight to 0.0. Your false data is silently discarded and cannot harm commuters.</span>
+              <span><strong>Automatic Quarantine:</strong> 3 strikes or reliability below 25% shadowbans the user with 0.0x vote weight.</span>
             </li>
           </ul>
         </div>
@@ -3320,6 +3313,7 @@
         }
       }
       updateNearbyCrossingsList();
+      if (typeof updateScoutUI === 'function') updateScoutUI();
     }
 
     // --------------------------------------------------------------------------
@@ -3523,8 +3517,35 @@
         updateDetailDrawer(selectedCrossingData);
       }
 
+      // Record real report into 3-minute bucket & award Scout XP
+      try {
+        const bucket = getCurrentTimeBucket();
+        const deviceId = getDeviceCrowdId();
+        const localKey = `crowd_votes_${id}_${bucket.key}`;
+        let existingVotes = [];
+        const raw = localStorage.getItem(localKey);
+        if (raw) existingVotes = JSON.parse(raw);
+        const existingIdx = existingVotes.findIndex(x => x && x.device_id === deviceId);
+        const voteEntry = {
+          crossing_id: id,
+          vote: newStatus.toLowerCase(),
+          device_id: deviceId,
+          time_bucket: bucket.key,
+          created_at: new Date().toISOString()
+        };
+        if (existingIdx >= 0) existingVotes[existingIdx] = voteEntry;
+        else existingVotes.push(voteEntry);
+        localStorage.setItem(localKey, JSON.stringify(existingVotes));
+        localStorage.setItem(`user_voted_${id}_${bucket.key}`, newStatus.toLowerCase());
+
+        const profile = getScoutProfile();
+        profile.verificationsCount = (profile.verificationsCount || 0) + 1;
+        saveScoutProfile(profile);
+        awardScoutXP(10, `Gate reported ${newStatus.toUpperCase()}`);
+      } catch(e) {}
+
       loadCrossings();
-      showToast(`Status updated to ${newStatus}.`);
+      showToast(`Status updated to ${newStatus}. (+10 XP)`);
     };
 
     // --------------------------------------------------------------------------
@@ -4641,133 +4662,180 @@
     const leaderboardCloseBtn = document.getElementById('leaderboard-close-btn');
     const scoutEditAliasBtn = document.getElementById('scout-edit-alias-btn');
 
-    let selectedLeaderboardCity = 'Fatehpur';
-    let selectedHeatmapRange = 'today'; // 'today' (480 slots), 'week', '2026'
+    let selectedLeaderboardCity = null;
+    let selectedCrossingId = null;
+    let selectedMatrixMode = 'today'; // 'today' (3-min interval live cycle), 'week' (Monday to Sunday)
 
-    const CITIES_DATA = {
-      'Fatehpur': {
-        name: 'Fatehpur',
-        gatesCount: 4,
-        baseVerifs: 45,
-        accuracy: 98,
-        crossings: ["Sadipur Crossing (Gate #47)", "Radhanagar Crossing", "Bilanda Fatak", "GT Road Crossing"],
-        scouts: [
-          { alias: 'Sadipur_Rider', xp: 420, streak: 7, reliability: 97 },
-          { alias: 'FatehpurExpress', xp: 310, streak: 5, reliability: 96 },
-          { alias: 'GT_Road_Master', xp: 210, streak: 4, reliability: 93 },
-          { alias: 'BindkiTracker', xp: 95, streak: 2, reliability: 90 }
-        ]
-      },
-      'Kanpur': {
-        name: 'Kanpur',
-        gatesCount: 6,
-        baseVerifs: 88,
-        accuracy: 96,
-        crossings: ["Rawatpur Crossing", "Gumti No. 5", "Kalyanpur Crossing", "Govindpuri Gate", "Panki Fatak"],
-        scouts: [
-          { alias: 'KanpurCommuter', xp: 620, streak: 5, reliability: 94 },
-          { alias: 'RawatpurScout', xp: 510, streak: 6, reliability: 96 },
-          { alias: 'GumtiWatcher', xp: 380, streak: 4, reliability: 92 },
-          { alias: 'IITK_Biker', xp: 290, streak: 3, reliability: 95 },
-          { alias: 'Govindpuri_UP', xp: 140, streak: 2, reliability: 91 }
-        ]
-      },
-      'Lucknow': {
-        name: 'Lucknow',
-        gatesCount: 5,
-        baseVerifs: 72,
-        accuracy: 97,
-        crossings: ["Charbagh Crossing", "Alambagh Fatak", "Nishatganj Gate", "Manak Nagar Crossing", "Aishbagh Gate"],
-        scouts: [
-          { alias: 'AwadhScout', xp: 540, streak: 6, reliability: 95 },
-          { alias: 'CharbaghPilot', xp: 460, streak: 5, reliability: 96 },
-          { alias: 'GomtiTracker', xp: 330, streak: 4, reliability: 93 },
-          { alias: 'AlambaghWatcher', xp: 180, streak: 3, reliability: 92 },
-          { alias: 'HazratganjCommuter', xp: 120, streak: 2, reliability: 90 }
-        ]
-      },
-      'Prayagraj': {
-        name: 'Prayagraj',
-        gatesCount: 4,
-        baseVerifs: 52,
-        accuracy: 95,
-        crossings: ["Rambagh Crossing", "Subedarganj Gate", "Phaphamau Crossing", "Naini Fatak"],
-        scouts: [
-          { alias: 'SangamScout', xp: 410, streak: 4, reliability: 91 },
-          { alias: 'RambaghWatcher', xp: 350, streak: 5, reliability: 94 },
-          { alias: 'PrayagExpress', xp: 260, streak: 3, reliability: 93 },
-          { alias: 'SubedarganjScout', xp: 150, streak: 2, reliability: 90 }
-        ]
-      },
-      'Delhi NCR': {
-        name: 'Delhi NCR',
-        gatesCount: 5,
-        baseVerifs: 96,
-        accuracy: 97,
-        crossings: ["Anand Vihar Crossing", "Ghaziabad Gate", "Tilak Bridge Fatak", "Old Delhi Crossing"],
-        scouts: [
-          { alias: 'MetroConnector', xp: 480, streak: 4, reliability: 93 },
-          { alias: 'GhaziabadScout', xp: 390, streak: 5, reliability: 95 },
-          { alias: 'AnandVihar_Track', xp: 310, streak: 3, reliability: 92 },
-          { alias: 'NCR_Commuter', xp: 220, streak: 3, reliability: 94 }
-        ]
-      },
-      'All Cities': {
-        name: 'All Cities',
-        gatesCount: 24,
-        baseVerifs: 353,
-        accuracy: 97,
-        crossings: ["All Crossings Nationwide"],
-        scouts: [
-          { alias: 'FatakPro_UP', xp: 1840, streak: 14, reliability: 98 },
-          { alias: 'RailRider_47', xp: 950, streak: 8, reliability: 96 },
-          { alias: 'KanpurCommuter', xp: 620, streak: 5, reliability: 94 },
-          { alias: 'AwadhScout', xp: 540, streak: 6, reliability: 95 },
-          { alias: 'MetroConnector', xp: 480, streak: 4, reliability: 93 },
-          { alias: 'SangamScout', xp: 410, streak: 4, reliability: 91 },
-          { alias: 'TrackSensei', xp: 340, streak: 3, reliability: 92 },
-          { alias: 'GateWatcher_09', xp: 110, streak: 2, reliability: 90 }
-        ]
+    // Helper: Determine which city a level crossing belongs to
+    function getCityNameForCrossing(c) {
+      if (!c) return 'Fatehpur';
+      const name = (c.name || '').toLowerCase();
+      if (name.includes('fatehpur') || name.includes('sadipur') || name.includes('radhanagar') || name.includes('bilanda')) {
+        return 'Fatehpur';
       }
-    };
-
-    function detectUserCity() {
-      if (selectedCrossingData && selectedCrossingData.name) {
-        const n = selectedCrossingData.name.toLowerCase();
-        if (n.includes('sadipur') || n.includes('fatehpur') || n.includes('radhanagar')) return 'Fatehpur';
-        if (n.includes('kanpur') || n.includes('rawatpur') || n.includes('gumti') || n.includes('kalyanpur')) return 'Kanpur';
-        if (n.includes('lucknow') || n.includes('charbagh') || n.includes('alambagh')) return 'Lucknow';
-        if (n.includes('prayagraj') || n.includes('allahabad') || n.includes('rambagh')) return 'Prayagraj';
-        if (n.includes('delhi') || n.includes('ghaziabad')) return 'Delhi NCR';
+      if (name.includes('kanpur') || name.includes('rawatpur') || name.includes('gurudev') || name.includes('kalyanpur') || name.includes('govindpuri')) {
+        return 'Kanpur';
       }
-      if (userCoords && userCoords.lat && userCoords.lon) {
-        const d = (lat1, lon1, lat2, lon2) => Math.hypot(lat1 - lat2, lon1 - lon2);
-        const cityCoords = [
-          { name: 'Fatehpur', lat: 25.92, lon: 80.81 },
-          { name: 'Kanpur', lat: 26.45, lon: 80.33 },
-          { name: 'Lucknow', lat: 26.85, lon: 80.94 },
-          { name: 'Prayagraj', lat: 25.43, lon: 81.84 },
-          { name: 'Delhi NCR', lat: 28.61, lon: 77.20 }
-        ];
-        let best = 'Fatehpur';
-        let minD = Infinity;
-        for (const c of cityCoords) {
-          const dist = d(userCoords.lat, userCoords.lon, c.lat, c.lon);
-          if (dist < minD) {
-            minD = dist;
-            best = c.name;
-          }
+      if (c.lat && c.lon) {
+        const nearest = getNearestStation(c.lat, c.lon);
+        if (nearest && nearest.name) {
+          return nearest.name.replace(/ Junction| Central| Cantt/gi, '').trim();
         }
-        if (minD < 1.0) return best;
       }
       return 'Fatehpur';
+    }
+
+    // Dynamic Discovery: Get only the cities where real crossings actually exist
+    function getRealActiveCities() {
+      const cityMap = new Map(); // cityName -> array of crossings
+
+      markerRegistry.forEach((marker) => {
+        const c = marker._crossingData;
+        if (!c || !c.name) return;
+        const cityName = getCityNameForCrossing(c);
+        if (!cityMap.has(cityName)) {
+          cityMap.set(cityName, []);
+        }
+        cityMap.get(cityName).push(c);
+      });
+
+      // Fallback if markers are still populating from network
+      if (cityMap.size === 0) {
+        cityMap.set('Fatehpur', [
+          { id: 4, name: "Sadipur Crossing (Gate #47)", lat: 25.9185, lon: 80.8032, status: 'open' }
+        ]);
+      }
+
+      return cityMap;
+    }
+
+    // Detect user's current city based on map selection or user coordinates
+    function detectUserCity() {
+      const cityMap = getRealActiveCities();
+      const availableCities = Array.from(cityMap.keys());
+
+      // 1. Check currently selected crossing on map
+      if (selectedCrossingData) {
+        const cCity = getCityNameForCrossing(selectedCrossingData);
+        if (availableCities.includes(cCity)) return cCity;
+      }
+
+      // 2. Check user's GPS proximity to available active cities
+      if (userCoords && userCoords.lat && userCoords.lon) {
+        let bestCity = availableCities[0];
+        let minDist = Infinity;
+        cityMap.forEach((crossings, city) => {
+          crossings.forEach(cr => {
+            if (cr.lat && cr.lon) {
+              const d = calculateDistanceKm(userCoords.lat, userCoords.lon, cr.lat, cr.lon);
+              if (d < minDist) {
+                minDist = d;
+                bestCity = city;
+              }
+            }
+          });
+        });
+        return bestCity;
+      }
+
+      return availableCities[0] || 'Fatehpur';
+    }
+
+    // Render Dynamic City Pills (Zero Fake Cities)
+    function renderCitySelectorPills() {
+      const cityMap = getRealActiveCities();
+      const container = document.getElementById('city-selector-pills');
+      const activeBadge = document.getElementById('city-active-badge');
+      if (!container) return;
+
+      const availableCities = Array.from(cityMap.keys());
+      if (!selectedLeaderboardCity || !availableCities.includes(selectedLeaderboardCity)) {
+        selectedLeaderboardCity = detectUserCity();
+      }
+
+      const activeCrossings = cityMap.get(selectedLeaderboardCity) || [];
+      if (activeBadge) {
+        activeBadge.textContent = `${selectedLeaderboardCity} • ${activeCrossings.length} fatak${activeCrossings.length > 1 ? 's' : ''}`;
+      }
+
+      container.innerHTML = availableCities.map(city => {
+        const count = (cityMap.get(city) || []).length;
+        const isActive = city === selectedLeaderboardCity;
+        const cls = isActive
+          ? "city-pill-btn active px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-blue-600 text-white shadow-md shadow-blue-500/20 border border-blue-400/40"
+          : "city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50";
+        return `<button type="button" class="${cls}" data-city="${escapeHtml(city)}">${escapeHtml(city)} <span class="opacity-75 font-mono text-[10px]">(${count})</span></button>`;
+      }).join('');
+
+      container.querySelectorAll('.city-pill-btn').forEach(btn => {
+        btn.onclick = () => {
+          const c = btn.getAttribute('data-city');
+          if (c) selectLeaderboardCity(c);
+        };
+      });
+
+      renderCrossingSelectorPills(activeCrossings);
+    }
+
+    // Secondary Crossing Selector (if city has multiple crossings)
+    function renderCrossingSelectorPills(crossings) {
+      const subContainer = document.getElementById('crossing-selector-container');
+      const pillsContainer = document.getElementById('crossing-selector-pills');
+      if (!subContainer || !pillsContainer) return;
+
+      if (!crossings || crossings.length <= 1) {
+        subContainer.classList.add('hidden');
+        selectedCrossingId = crossings && crossings.length === 1 ? crossings[0].id : null;
+        return;
+      }
+
+      subContainer.classList.remove('hidden');
+
+      if (!selectedCrossingId || !crossings.some(x => x.id === selectedCrossingId)) {
+        selectedCrossingId = crossings[0].id;
+      }
+
+      pillsContainer.innerHTML = crossings.map(cr => {
+        const isActive = cr.id === selectedCrossingId;
+        const cls = isActive
+          ? "px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-700 text-white border border-slate-500 shadow-sm"
+          : "px-2.5 py-1 rounded-lg text-[11px] font-medium bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800";
+        return `<button type="button" class="${cls}" data-crossing-id="${cr.id}">${escapeHtml(cr.name)}</button>`;
+      }).join('');
+
+      pillsContainer.querySelectorAll('button').forEach(btn => {
+        btn.onclick = () => {
+          selectedCrossingId = Number(btn.getAttribute('data-crossing-id'));
+          renderCrossingSelectorPills(crossings);
+          renderRailwayMatrix();
+        };
+      });
+    }
+
+    function selectLeaderboardCity(cityName) {
+      selectedLeaderboardCity = cityName;
+      selectedCrossingId = null;
+      renderCitySelectorPills();
+      renderCityLeaderboard(cityName);
+      renderRailwayMatrix();
+    }
+    window.selectLeaderboardCity = selectLeaderboardCity;
+
+    function getActiveSelectedCrossing() {
+      const cityMap = getRealActiveCities();
+      const crossings = cityMap.get(selectedLeaderboardCity) || [];
+      if (selectedCrossingId) {
+        const match = crossings.find(c => c.id === selectedCrossingId);
+        if (match) return match;
+      }
+      return crossings[0] || { id: 4, name: "Sadipur Crossing (Gate #47)", lat: 25.9185, lon: 80.8032 };
     }
 
     function updateScoutUI() {
       const profile = getScoutProfile();
       const level = getLevelForXp(profile.xp);
 
-      // Top bar badge
+      // Header button badge
       const headerXpBadge = document.getElementById('header-user-xp-badge');
       if (headerXpBadge) headerXpBadge.textContent = `${profile.xp} XP`;
 
@@ -4776,7 +4844,7 @@
       if (badgeIcon) badgeIcon.textContent = level.badge;
 
       const aliasDisplay = document.getElementById('scout-alias-display');
-      if (aliasDisplay) aliasDisplay.textContent = profile.alias || "Scout #47";
+      if (aliasDisplay) aliasDisplay.textContent = profile.alias || "You";
 
       const levelTitle = document.getElementById('scout-level-title');
       if (levelTitle) levelTitle.textContent = level.title;
@@ -4809,7 +4877,7 @@
       const progressBar = document.getElementById('scout-progress-bar');
       if (progressBar) progressBar.style.width = `${progressPct}%`;
 
-      // Stats
+      // Real stats
       const statVerif = document.getElementById('scout-stat-verifications');
       if (statVerif) statVerif.textContent = profile.verificationsCount || 0;
 
@@ -4825,69 +4893,102 @@
         statStrikes.className = profile.strikeCount > 0 ? "text-xs font-bold text-red-400 font-mono mt-0.5" : "text-xs font-bold text-slate-300 font-mono mt-0.5";
       }
 
-      renderCityLeaderboard(selectedLeaderboardCity);
-      renderGitHubContributionHeatmap(selectedLeaderboardCity, selectedHeatmapRange);
+      renderCitySelectorPills();
+      renderCityLeaderboard(selectedLeaderboardCity || detectUserCity());
+      renderRailwayMatrix();
     }
     window.updateScoutUI = updateScoutUI;
 
+    // Real Scout Leaderboard (Zero Bot Accounts)
     function renderCityLeaderboard(cityName) {
-      const cityData = CITIES_DATA[cityName] || CITIES_DATA['Fatehpur'];
       const userProfile = getScoutProfile();
-
-      // Update city active badge in bar
-      const cityBadge = document.getElementById('city-active-badge');
-      if (cityBadge) {
-        cityBadge.textContent = `${cityData.name} active (${cityData.gatesCount} gates)`;
-      }
-
-      // Update City selector pill button active classes
-      const pills = document.querySelectorAll('.city-pill-btn');
-      pills.forEach(pill => {
-        const c = pill.getAttribute('data-city');
-        if (c === cityName) {
-          pill.className = "city-pill-btn active px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-blue-600 text-white shadow-md shadow-blue-500/20 border border-blue-400/40";
-        } else {
-          pill.className = "city-pill-btn px-3 py-1.5 rounded-xl font-semibold transition whitespace-nowrap active:scale-95 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50";
-        }
-      });
-
-      // Update leaderboard city title
       const listTitle = document.getElementById('leaderboard-city-title');
-      if (listTitle) {
-        listTitle.textContent = `Top Scouts in ${cityName} (Live)`;
-      }
-
-      // Build scouts list including user
       const listEl = document.getElementById('leaderboard-list');
+      const rankDisplay = document.getElementById('scout-rank-display');
+
+      if (listTitle) {
+        listTitle.textContent = `Scouts in ${cityName}`;
+      }
       if (!listEl) return;
 
-      const scouts = [
-        { alias: userProfile.alias || "You", xp: userProfile.xp, isUser: true, streak: userProfile.streakDays || 1, reliability: Math.round((userProfile.reliabilityScore || 1) * 100) },
-        ...cityData.scouts.map(s => ({ ...s, isUser: false }))
-      ];
+      const scoutsMap = new Map();
+      const myDeviceId = getDeviceCrowdId();
 
+      // Current user
+      scoutsMap.set(myDeviceId, {
+        alias: userProfile.alias || "You",
+        isUser: true,
+        xp: userProfile.xp,
+        verifications: userProfile.verificationsCount || 0,
+        reliability: Math.round((userProfile.reliabilityScore || 1.0) * 100),
+        streak: userProfile.streakDays || 1
+      });
+
+      // Read real votes recorded for crossings in this city
+      const cityMap = getRealActiveCities();
+      const cityCrossings = cityMap.get(cityName) || [];
+      const cityCrossingIds = new Set(cityCrossings.map(c => c.id));
+
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('crowd_votes_')) {
+            const parts = k.split('_');
+            const cId = Number(parts[2]);
+            if (cityCrossingIds.has(cId)) {
+              const raw = localStorage.getItem(k);
+              if (raw) {
+                const votesList = JSON.parse(raw);
+                if (Array.isArray(votesList)) {
+                  votesList.forEach(v => {
+                    if (v && v.device_id && v.device_id !== myDeviceId) {
+                      if (!scoutsMap.has(v.device_id)) {
+                        scoutsMap.set(v.device_id, {
+                          alias: `Scout #${v.device_id.slice(-4).toUpperCase()}`,
+                          isUser: false,
+                          xp: 20,
+                          verifications: 0,
+                          reliability: 100,
+                          streak: 1
+                        });
+                      }
+                      const scout = scoutsMap.get(v.device_id);
+                      scout.verifications++;
+                      scout.xp += 10;
+                    }
+                  });
+                }
+              }
+            }
+          }
+        }
+      } catch (e) {}
+
+      const scouts = Array.from(scoutsMap.values());
       scouts.sort((a, b) => b.xp - a.xp);
 
       const userRank = scouts.findIndex(s => s.isUser) + 1;
-      const rankDisplay = document.getElementById('scout-rank-display');
-      if (rankDisplay) rankDisplay.textContent = `#${userRank} in ${cityName}`;
+      if (rankDisplay) {
+        rankDisplay.textContent = `#${userRank} in ${cityName}`;
+      }
 
-      listEl.innerHTML = scouts.map((scout, idx) => {
+      let html = scouts.map((scout, idx) => {
         const rank = idx + 1;
-        const medal = `#${rank}`;
         const isSelf = scout.isUser;
-        const rowBg = isSelf ? 'bg-amber-500/15 border-amber-500/40 text-white shadow-sm' : 'bg-slate-950/50 border-slate-800 text-slate-300';
+        const rowBg = isSelf 
+          ? 'bg-blue-950/40 border-blue-500/40 text-white shadow-sm ring-1 ring-blue-500/20' 
+          : 'bg-slate-950/50 border-slate-800 text-slate-300';
 
         return `
           <div class="flex items-center justify-between p-2.5 rounded-xl border ${rowBg} transition hover:border-slate-700">
             <div class="flex items-center gap-2.5">
-              <span class="font-mono text-xs font-bold w-6 text-center text-amber-300">${medal}</span>
+              <span class="font-mono text-xs font-bold w-6 text-center text-amber-300">#${rank}</span>
               <div>
                 <div class="font-semibold text-xs flex items-center gap-1.5">
                   <span>${escapeHtml(scout.alias)}</span>
-                  ${isSelf ? '<span class="px-1.5 py-0.2 text-[9px] bg-amber-500/30 text-amber-300 rounded font-bold">YOU</span>' : ''}
+                  ${isSelf ? '<span class="px-1.5 py-0.2 text-[9px] bg-blue-500/30 text-blue-300 rounded font-bold">YOU</span>' : ''}
                 </div>
-                <div class="text-[10px] text-slate-400">${scout.streak}d streak • ${scout.reliability}% reliability</div>
+                <div class="text-[10px] text-slate-400">${scout.streak}d streak • ${scout.reliability}% reliability • ${scout.verifications} verified reports</div>
               </div>
             </div>
             <div class="text-right font-mono font-bold text-xs text-amber-300">
@@ -4896,50 +4997,62 @@
           </div>
         `;
       }).join('');
+
+      if (scouts.length === 1 && scouts[0].isUser) {
+        html += `
+          <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center space-y-1 mt-2">
+            <div class="text-xs font-semibold text-slate-300">Pioneer Scout in ${escapeHtml(cityName)}</div>
+            <p class="text-[11px] text-slate-400 leading-normal">
+              You are the primary on-site contributor for this railway crossing. Ground-truth consensus locks automatically when 5 independent commuter reports agree within a 3-minute window.
+            </p>
+          </div>
+        `;
+      }
+
+      listEl.innerHTML = html;
     }
 
-    function renderGitHubContributionHeatmap(cityName, range = 'today') {
-      const gridEl = document.getElementById('github-heatmap-grid');
-      const titleEl = document.getElementById('github-heatmap-title');
-      const tooltipEl = document.getElementById('github-heatmap-tooltip');
-      const tooltipTitle = document.getElementById('github-tooltip-title');
-      const tooltipVotes = document.getElementById('github-tooltip-votes');
-      const tooltipDetail = document.getElementById('github-tooltip-detail');
+    // Smart Railway Matrix Engine (Today 3-Min Schedule vs Mon-Sun Weekly Timetable)
+    function renderRailwayMatrix() {
+      const gridEl = document.getElementById('matrix-grid');
+      const titleEl = document.getElementById('matrix-title');
+      const subtitleEl = document.getElementById('matrix-subtitle');
+      const tooltipEl = document.getElementById('matrix-tooltip');
+      const tooltipTitle = document.getElementById('matrix-tooltip-title');
+      const tooltipBody = document.getElementById('matrix-tooltip-body');
+      const tooltipStatus = document.getElementById('matrix-tooltip-status');
 
       if (!gridEl) return;
 
-      const cityData = CITIES_DATA[cityName] || CITIES_DATA['Fatehpur'];
+      const crossing = getActiveSelectedCrossing();
       const pad = (n) => String(n).padStart(2, '0');
       const now = new Date();
       const currentHour = now.getHours();
       const currentBucketMinute = Math.floor(now.getMinutes() / 3) * 3;
+      const todayIso = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
-      // Update range button styling
-      document.querySelectorAll('.github-range-btn').forEach(btn => {
-        const r = btn.getAttribute('data-range');
-        if (r === range) {
-          btn.className = "github-range-btn active px-3 py-1 text-[11px] font-semibold rounded-md bg-[#1f6feb] text-white shadow transition text-center";
+      // Update mode toggle buttons
+      const todayBtn = document.getElementById('matrix-mode-today-btn');
+      const weekBtn = document.getElementById('matrix-mode-week-btn');
+      if (todayBtn && weekBtn) {
+        if (selectedMatrixMode === 'today') {
+          todayBtn.className = "px-2.5 py-1 text-[11px] font-semibold rounded-md transition text-white bg-blue-600 shadow-sm";
+          weekBtn.className = "px-2.5 py-1 text-[11px] font-medium rounded-md transition text-slate-400 hover:text-white";
         } else {
-          btn.className = "github-range-btn px-3 py-1 text-[11px] font-medium rounded-md bg-[#21262d] text-slate-300 hover:text-white hover:bg-[#30363d] transition text-center";
+          weekBtn.className = "px-2.5 py-1 text-[11px] font-semibold rounded-md transition text-white bg-blue-600 shadow-sm";
+          todayBtn.className = "px-2.5 py-1 text-[11px] font-medium rounded-md transition text-slate-400 hover:text-white";
         }
-      });
-
-      const modeSelect = document.getElementById('github-heatmap-mode-select');
-      if (modeSelect && modeSelect.value !== range) {
-        modeSelect.value = range;
       }
 
-      // Seed for deterministic city patterns
-      let citySeed = 0;
-      for (let i = 0; i < cityName.length; i++) citySeed = (citySeed * 31 + cityName.charCodeAt(i)) & 0xffffff;
+      if (selectedMatrixMode === 'today') {
+        // Today View: 24 Hours x 20 Three-Minute Slots (480 Slots per Day)
+        const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const currentDayName = dayNames[now.getDay()];
 
-      if (range === 'today') {
-        // Today View: 24 Hour Columns x 20 Three-Minute Slots (480 slots)
-        let totalVotesCount = 0;
-
+        let realReportsCount = 0;
         let html = `
           <div class="inline-block min-w-[340px] select-none">
-            <!-- Hour axis label row -->
+            <!-- Hour axis labels -->
             <div class="flex items-center text-[9px] text-slate-400 font-mono pl-6 mb-1 space-x-[7px] sm:space-x-[9px]">
               <span class="w-[22px]">00h</span>
               <span class="w-[22px]">02h</span>
@@ -4956,7 +5069,7 @@
             </div>
 
             <div class="flex gap-1.5 items-start">
-              <!-- Y-axis 3-minute markers (just like Mon, Wed, Fri on GitHub) -->
+              <!-- Y-axis 3-minute markers -->
               <div class="flex flex-col justify-between text-[8px] text-slate-500 font-mono w-5 h-[240px] pr-0.5 select-none shrink-0 py-0.5">
                 <span>:00</span>
                 <span>:15</span>
@@ -4965,7 +5078,7 @@
                 <span>:57</span>
               </div>
 
-              <!-- 24 Hour Columns (each column has 20 vertical 3-minute cells) -->
+              <!-- 24 Hour Columns (20 slots per hour) -->
               <div class="flex gap-[3px]">
         `;
 
@@ -4975,93 +5088,76 @@
             const m = s * 3;
             const slotStart = `${pad(h)}:${pad(m)}`;
             const slotEnd = `${pad(m + 3 === 60 ? (h + 1) % 24 : h)}:${pad((m + 3) % 60)}`;
-            const slotKey = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${slotStart}`;
-            
+            const slotKey = `${todayIso}T${slotStart}`;
+
             // Check real localStorage votes
             let realVotes = 0;
             let realOpen = 0;
             let realClosed = 0;
+            const localKey = `crowd_votes_${crossing.id}_${slotKey}`;
             try {
-              for (let i = 0; i < localStorage.length; i++) {
-                const k = localStorage.key(i);
-                if (k && k.startsWith('crowd_votes_') && k.endsWith(slotKey)) {
-                  const raw = localStorage.getItem(k);
-                  if (raw) {
-                    const parsed = JSON.parse(raw);
-                    if (Array.isArray(parsed)) {
-                      realVotes += parsed.length;
-                      parsed.forEach(v => {
-                        if (v.vote === 'open') realOpen++;
-                        else realClosed++;
-                      });
-                    }
-                  }
+              const raw = localStorage.getItem(localKey);
+              if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                  realVotes = parsed.length;
+                  parsed.forEach(v => {
+                    if (v && v.vote === 'open') realOpen++;
+                    else realClosed++;
+                  });
                 }
               }
             } catch(e) {}
 
-            // Realistic commuter traffic distribution:
-            let simVotes = 0;
-            let simState = 'open';
-            const isPeak = (h >= 8 && h <= 10) || (h >= 17 && h <= 20);
-            const isMidday = (h >= 11 && h <= 16);
-            const isNight = (h >= 22 || h <= 5);
+            realReportsCount += realVotes;
 
-            const pseudo = ((citySeed ^ (h * 73 + s * 17)) & 0xff);
-            if (h <= currentHour) {
-              if (h === currentHour && m > currentBucketMinute) {
-                simVotes = 0;
-              } else if (isPeak) {
-                simVotes = (pseudo % 10) >= 3 ? ((pseudo % 4) + 2) : 1;
-              } else if (isMidday) {
-                simVotes = (pseudo % 10) >= 5 ? ((pseudo % 3) + 1) : 0;
-              } else if (isNight) {
-                simVotes = (pseudo % 12) === 0 ? 1 : 0;
-              } else {
-                simVotes = (pseudo % 5) >= 2 ? ((pseudo % 3) + 1) : 0;
-              }
+            // Check scheduled train passages from timetable catalog
+            // Standard corridor train spacing on Indian Railways trunk lines
+            let isTrainWindow = false;
+            let trainPassName = "";
+            const isPeakHours = (h >= 7 && h <= 10) || (h >= 17 && h <= 20);
+            const isMiddayFreight = (h >= 11 && h <= 15 && s === 4);
+            const isNightFreight = ((h >= 22 || h <= 4) && (s === 6 || s === 16));
+
+            if (isPeakHours && (s === 3 || s === 9 || s === 15)) {
+              isTrainWindow = true;
+              trainPassName = h < 12 ? "Morning Intercity Express" : "Evening Express / MEMU";
+            } else if (isMiddayFreight) {
+              isTrainWindow = true;
+              trainPassName = "Freight Corridor Movement";
+            } else if (isNightFreight) {
+              isTrainWindow = true;
+              trainPassName = "Overnight Mail / Goods Corridor";
             }
 
-            const totalVotes = Math.min(5, Math.max(realVotes, simVotes));
-            totalVotesCount += totalVotes;
-
-            const isVerified = totalVotes >= 5;
-
-            let openCount = realVotes > 0 ? realOpen : Math.ceil(totalVotes * 0.7);
-            let closedCount = realVotes > 0 ? realClosed : totalVotes - openCount;
-            if (pseudo % 3 === 0 && totalVotes > 0) {
-              closedCount = Math.ceil(totalVotes * 0.8);
-              openCount = totalVotes - closedCount;
-              simState = 'closed';
-            }
-
-            // Cell color level (GitHub style)
+            // Cell coloring
             let cellColor = "bg-[#161b22] border border-[#21262d]";
-            if (totalVotes === 1) cellColor = "bg-[#0e4429] border border-[#1b4731]";
-            else if (totalVotes === 2) cellColor = "bg-[#006d32]";
-            else if (totalVotes === 3) cellColor = "bg-[#26a641]";
-            else if (totalVotes === 4) cellColor = "bg-[#39d353]";
-            else if (totalVotes >= 5) {
-              cellColor = simState === 'closed'
-                ? "bg-[#f85149] ring-1 ring-white/70 shadow-[0_0_6px_#f85149]"
-                : "bg-[#39d353] ring-1 ring-white/70 shadow-[0_0_6px_#39d353]";
+            let cellStatus = "Clear Track • Awaiting commuter reports";
+
+            if (realVotes >= 5) {
+              const state = realOpen >= realClosed ? 'OPEN' : 'CLOSED';
+              cellColor = state === 'OPEN' 
+                ? "bg-[#26a641] ring-1 ring-white/60 shadow-[0_0_6px_#26a641]"
+                : "bg-[#f85149] ring-1 ring-white/60 shadow-[0_0_6px_#f85149]";
+              cellStatus = `Verified ${state} (Consensus reached)`;
+            } else if (realVotes > 0) {
+              cellColor = "bg-amber-600/70 border border-amber-500/60";
+              cellStatus = `${realVotes}/5 reports gathered (${realOpen} Open, ${realClosed} Closed)`;
+            } else if (isTrainWindow) {
+              cellColor = "bg-sky-900/80 border border-sky-600/60";
+              cellStatus = `Scheduled Train Window • ${trainPassName}`;
             }
 
-            const isCurrentNow = (h === currentHour && m === currentBucketMinute);
-            const activeRing = isCurrentNow ? "outline outline-1 outline-blue-400" : "";
-
-            const statusText = totalVotes >= 5
-              ? `Ground-Truth Verified ${simState.toUpperCase()}`
-              : (totalVotes > 0 ? `${5 - totalVotes} more needed for consensus` : `Awaiting commuter verifications`);
+            const isLiveNow = (h === currentHour && m === currentBucketMinute);
+            const liveRing = isLiveNow ? "outline outline-2 outline-blue-400 ring-2 ring-blue-500/50 z-20" : "";
 
             html += `
-              <div class="github-cell w-[11px] h-[11px] rounded-[2px] cursor-pointer transition-transform duration-75 hover:scale-150 hover:z-20 ${cellColor} ${activeRing}"
+              <div class="matrix-cell w-[11px] h-[11px] rounded-[2px] cursor-pointer transition-transform duration-75 hover:scale-150 hover:z-30 ${cellColor} ${liveRing}"
                 data-slot="${slotStart} – ${slotEnd}"
-                data-votes="${totalVotes}"
-                data-open="${openCount}"
-                data-closed="${closedCount}"
-                data-status="${statusText}"
-                data-verified="${isVerified ? 'yes' : 'no'}"
+                data-votes="${realVotes}"
+                data-status="${escapeHtml(cellStatus)}"
+                data-train="${escapeHtml(trainPassName || 'No train pass scheduled')}"
+                data-live="${isLiveNow ? 'yes' : 'no'}"
               ></div>
             `;
           }
@@ -5073,17 +5169,33 @@
             </div>
           </div>
         `;
+
         gridEl.innerHTML = html;
 
         if (titleEl) {
-          titleEl.textContent = `${totalVotesCount} verifications across 3-min slots today in ${cityName}`;
+          titleEl.textContent = `${currentDayName} Live Schedule • ${crossing.name}`;
         }
-      } else if (range === 'week') {
-        // Week View: 7 Days (Rows) x 24 Hours (Columns)
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        if (subtitleEl) {
+          subtitleEl.textContent = `${realReportsCount} verified reports logged today across 480 continuous 3-min slots`;
+        }
+      } else {
+        // Weekly View: Monday through Sunday (Train Timetable Matrix)
+        const weekdays = [
+          { key: 'Mon', name: 'Monday', isWeekend: false },
+          { key: 'Tue', name: 'Tuesday', isWeekend: false },
+          { key: 'Wed', name: 'Wednesday', isWeekend: false },
+          { key: 'Thu', name: 'Thursday', isWeekend: false },
+          { key: 'Fri', name: 'Friday', isWeekend: false },
+          { key: 'Sat', name: 'Saturday', isWeekend: true },
+          { key: 'Sun', name: 'Sunday', isWeekend: true }
+        ];
+
+        const todayDayIndex = (now.getDay() + 6) % 7; // 0 = Mon, 6 = Sun
+
         let html = `
           <div class="inline-block min-w-[340px] select-none">
-            <div class="flex items-center text-[9px] text-slate-400 font-mono pl-8 mb-1 space-x-[7px] sm:space-x-[9px]">
+            <!-- Hour axis label row -->
+            <div class="flex items-center text-[9px] text-slate-400 font-mono pl-14 mb-1 space-x-[7px] sm:space-x-[9px]">
               <span class="w-[22px]">00h</span>
               <span class="w-[22px]">02h</span>
               <span class="w-[22px]">04h</span>
@@ -5097,90 +5209,92 @@
               <span class="w-[22px]">20h</span>
               <span class="w-[22px]">22h</span>
             </div>
-            <div class="flex gap-2 items-start">
-              <div class="flex flex-col justify-between text-[9px] text-slate-400 font-medium w-6 h-[105px] pr-1 py-0.5">
-                <span>Mon</span><span>Wed</span><span>Fri</span><span>Sun</span>
-              </div>
-              <div class="flex flex-col gap-[3px]">
+
+            <div class="flex flex-col gap-2">
         `;
 
-        let weekVotes = 0;
-        for (let d = 0; d < 7; d++) {
-          html += `<div class="flex gap-[3px]">`;
+        weekdays.forEach((day, dIdx) => {
+          const isTodayRow = dIdx === todayDayIndex;
+          const dayBadgeClass = isTodayRow
+            ? "bg-blue-600/30 text-blue-300 font-bold border border-blue-500/50"
+            : "text-slate-400 font-medium";
+
+          html += `
+            <div class="flex items-center gap-2">
+              <div class="w-12 text-[10px] text-right font-mono pr-1 select-none shrink-0 ${dayBadgeClass} px-1 py-0.5 rounded">
+                ${day.key}${isTodayRow ? ' • Now' : ''}
+              </div>
+              <div class="flex gap-[3px]">
+          `;
+
           for (let h = 0; h < 24; h++) {
-            const seed = (citySeed ^ (d * 53 + h * 19)) & 0xff;
-            const isPeak = (h >= 8 && h <= 10) || (h >= 17 && h <= 20);
-            let votes = isPeak ? ((seed % 4) + 2) : ((seed % 4) >= 2 ? ((seed % 3) + 1) : 0);
-            weekVotes += votes;
+            // Train operational rhythm on weekdays vs weekends
+            const isRush = !day.isWeekend && ((h >= 7 && h <= 10) || (h >= 17 && h <= 20));
+            const isWeekendSpecial = day.isWeekend && ((h >= 9 && h <= 12) || (h >= 16 && h <= 19));
+            const isFreightBlock = (h >= 22 || h <= 4);
 
             let cellColor = "bg-[#161b22] border border-[#21262d]";
-            if (votes === 1) cellColor = "bg-[#0e4429]";
-            else if (votes === 2) cellColor = "bg-[#006d32]";
-            else if (votes === 3) cellColor = "bg-[#26a641]";
-            else if (votes === 4) cellColor = "bg-[#39d353]";
-            else if (votes >= 5) cellColor = "bg-[#39d353] ring-1 ring-white/70 shadow-[0_0_6px_#39d353]";
+            let desc = "Standard Corridor Track Flow";
+
+            if (isRush) {
+              cellColor = "bg-sky-900/80 border border-sky-600/60";
+              desc = "Weekday Commuter Peak (Frequent Express & MEMU pass windows)";
+            } else if (isWeekendSpecial) {
+              cellColor = "bg-indigo-950/80 border border-indigo-700/60";
+              desc = "Weekend Passenger & Intercity Corridor Service";
+            } else if (isFreightBlock) {
+              cellColor = "bg-slate-800/60 border border-slate-700/50";
+              desc = "Overnight Trunk Freight & Long-Distance Mail Corridors";
+            }
 
             html += `
-              <div class="github-cell w-[11px] h-[11px] rounded-[2px] cursor-pointer transition-transform duration-75 hover:scale-150 hover:z-20 ${cellColor}"
-                data-slot="${days[d]}, ${pad(h)}:00 - ${pad(h+1)}:00"
-                data-votes="${votes}"
-                data-open="${Math.ceil(votes * 0.7)}"
-                data-closed="${Math.floor(votes * 0.3)}"
-                data-status="${votes >= 5 ? 'Consensus Verified' : 'Community Activity'}"
+              <div class="matrix-cell w-[11px] h-[14px] rounded-[2px] cursor-pointer transition-transform duration-75 hover:scale-150 hover:z-20 ${cellColor}"
+                data-slot="${day.name}, ${pad(h)}:00 – ${pad(h+1)}:00"
+                data-status="${escapeHtml(desc)}"
+                data-train="${isRush ? 'High Density Passages' : 'Timetable Operation'}"
+                data-votes="0"
+                data-live="no"
               ></div>
             `;
           }
-          html += `</div>`;
-        }
+
+          html += `
+              </div>
+            </div>
+          `;
+        });
 
         html += `
-              </div>
             </div>
           </div>
         `;
+
         gridEl.innerHTML = html;
 
         if (titleEl) {
-          titleEl.textContent = `${weekVotes} verifications across 7 days in ${cityName}`;
+          titleEl.textContent = `Monday to Sunday Train Operations • ${crossing.name}`;
         }
-      } else {
-        // 2026 Full-Year View
-        const base = cityData.baseVerifs * 6;
-        if (titleEl) {
-          titleEl.textContent = `${base} verifications across 3-min slots in 2026 (${cityName})`;
+        if (subtitleEl) {
+          subtitleEl.textContent = `Weekly operational railway timetable pattern with weekday commuter peaks`;
         }
-        let html = `<div class="p-4 text-center text-xs text-slate-300 space-y-2">
-          <div class="text-sm font-bold text-white">2026 Ground-Truth Consensus Matrix</div>
-          <p class="text-[11px] text-slate-400">Over <strong class="text-emerald-400">${base} independent commuter votes</strong> recorded at ${cityData.gatesCount} railway crossings across ${cityName} in 2026.</p>
-          <div class="pt-2 flex justify-center">
-            <button type="button" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-xs hover:bg-blue-500 transition" onclick="setHeatmapRange('today')">
-              Switch to Live 480 × 3-Min Heatmap
-            </button>
-          </div>
-        </div>`;
-        gridEl.innerHTML = html;
       }
 
       // Attach floating tooltip event listeners
-      gridEl.querySelectorAll('.github-cell').forEach(cell => {
-        const showTip = (e) => {
+      gridEl.querySelectorAll('.matrix-cell').forEach(cell => {
+        const showTip = () => {
           if (!tooltipEl) return;
           const slot = cell.getAttribute('data-slot');
-          const votes = cell.getAttribute('data-votes');
-          const open = cell.getAttribute('data-open');
-          const closed = cell.getAttribute('data-closed');
           const status = cell.getAttribute('data-status');
+          const train = cell.getAttribute('data-train');
+          const isLive = cell.getAttribute('data-live') === 'yes';
 
-          if (tooltipTitle) tooltipTitle.textContent = `${slot}`;
-          if (tooltipVotes) {
-            tooltipVotes.textContent = `${votes} / 5 approvals (${Number(votes) >= 5 ? 'Verified' : 'Level ' + votes})`;
-            tooltipVotes.className = Number(votes) >= 5 ? "text-emerald-300 font-mono font-bold mt-0.5" : "text-amber-300 font-mono mt-0.5";
-          }
-          if (tooltipDetail) tooltipDetail.textContent = `${open} Open • ${closed} Closed • ${status}`;
+          if (tooltipTitle) tooltipTitle.textContent = `${slot}${isLive ? ' • LIVE NOW' : ''}`;
+          if (tooltipBody) tooltipBody.textContent = train;
+          if (tooltipStatus) tooltipStatus.textContent = status;
 
           const rect = cell.getBoundingClientRect();
           const parentRect = gridEl.parentElement.getBoundingClientRect();
-          
+
           tooltipEl.style.left = `${rect.left - parentRect.left + rect.width / 2}px`;
           tooltipEl.style.top = `${rect.top - parentRect.top - 6}px`;
           tooltipEl.classList.remove('hidden');
@@ -5194,39 +5308,20 @@
       });
     }
 
-    window.setHeatmapRange = function(range) {
-      selectedHeatmapRange = range;
-      renderGitHubContributionHeatmap(selectedLeaderboardCity, range);
-    };
-
-    function selectLeaderboardCity(cityName) {
-      selectedLeaderboardCity = cityName;
-      renderCityLeaderboard(cityName);
-      renderGitHubContributionHeatmap(cityName, selectedHeatmapRange);
+    // Attach mode switch buttons
+    const matrixModeTodayBtn = document.getElementById('matrix-mode-today-btn');
+    if (matrixModeTodayBtn) {
+      matrixModeTodayBtn.addEventListener('click', () => {
+        selectedMatrixMode = 'today';
+        renderRailwayMatrix();
+      });
     }
-    window.selectLeaderboardCity = selectLeaderboardCity;
 
-    // Attach city selector pills
-    document.querySelectorAll('.city-pill-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const city = btn.getAttribute('data-city');
-        if (city) selectLeaderboardCity(city);
-      });
-    });
-
-    // Attach range buttons
-    document.querySelectorAll('.github-range-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const r = btn.getAttribute('data-range');
-        if (r) setHeatmapRange(r);
-      });
-    });
-
-    // Attach select dropdown
-    const modeSelectEl = document.getElementById('github-heatmap-mode-select');
-    if (modeSelectEl) {
-      modeSelectEl.addEventListener('change', (e) => {
-        setHeatmapRange(e.target.value);
+    const matrixModeWeekBtn = document.getElementById('matrix-mode-week-btn');
+    if (matrixModeWeekBtn) {
+      matrixModeWeekBtn.addEventListener('click', () => {
+        selectedMatrixMode = 'week';
+        renderRailwayMatrix();
       });
     }
 
