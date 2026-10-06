@@ -228,7 +228,7 @@
           <h1 class="text-xs sm:text-sm font-semibold tracking-tight text-white leading-tight truncate">
             Hate Fatak
           </h1>
-          <div class="flex items-center gap-1.5 sm:gap-2 mt-0.5 whitespace-nowrap">
+          <div class="hidden sm:flex items-center gap-1.5 sm:gap-2 mt-0.5 whitespace-nowrap">
             <span class="text-[9px] sm:text-[10px] text-emerald-400 font-medium">Live</span>
             <span class="text-slate-600 text-[9px] sm:text-[10px]">•</span>
             <span id="crossing-count" class="text-[9px] sm:text-[10px] text-slate-400">0 Crossings</span>
@@ -257,13 +257,13 @@
           <span>Scan Tracks</span>
         </button>
 
-        <!-- Add Crossing Button -->
-        <button id="add-crossing-btn" type="button" class="text-xs font-semibold px-2.5 sm:px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-[10px] transition active:scale-95 flex items-center gap-1 sm:gap-1.5 shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <!-- Add Crossing Button (+ on mobile, + Add Crossing on larger screens) -->
+        <button id="add-crossing-btn" type="button" title="Add Crossing" class="w-8 h-8 sm:w-auto text-xs font-bold sm:font-semibold px-0 sm:px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-[10px] transition active:scale-95 flex items-center justify-center gap-1.5 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          <span class="text-[11px] sm:text-xs">Add Crossing</span>
+          <span class="hidden sm:inline text-xs">Add Crossing</span>
         </button>
 
         <!-- Locate Button -->
@@ -1420,6 +1420,13 @@
       const distKm = calculateDistanceKm(userCoords.lat, userCoords.lon, crossing.lat, crossing.lon);
       if (distKm > 0.8) return; // Only trigger for people physically near the crossing
 
+      // Enforce 7-minute timeout before re-prompting the user with the on-site verification popup
+      const SEVEN_MINUTES_MS = 7 * 60 * 1000;
+      const lastPopupTime = parseInt(localStorage.getItem('crowd_popup_last_prompt_time') || '0', 10);
+      if (Date.now() - lastPopupTime < SEVEN_MINUTES_MS) {
+        return;
+      }
+
       const bucket = getCurrentTimeBucket();
       const votedKey = `user_voted_${crossing.id}_${bucket.key}`;
       if (localStorage.getItem(votedKey)) return;
@@ -1475,6 +1482,7 @@
     }
 
     function hideCrowdVerificationPopup() {
+      localStorage.setItem('crowd_popup_last_prompt_time', String(Date.now()));
       const popup = document.getElementById('crowd-verification-popup');
       if (popup) popup.classList.add('hidden');
     }
@@ -1838,7 +1846,7 @@
     // --------------------------------------------------------------------------
     // 6. Drawer Controller (With Automated Gate Prediction Model)
     // --------------------------------------------------------------------------
-    function updateDetailDrawer(crossing) {
+    function updateDetailDrawer(crossing, shouldOpenMobile = true) {
       selectedCrossingData = crossing;
       const { id, name, lat, lon } = crossing;
       const nearest = getNearestStation(lat, lon);
@@ -2395,14 +2403,25 @@
       // Automatically check and show on-site verification popup if user is near
       checkAndShowCrowdVerificationPopup(crossing);
 
-      // Open mobile sheet and backdrop smoothly
-      mobileSheet.style.transform = '';
-      mobileSheet.classList.remove('translate-y-full');
-      const sheetBackdrop = document.getElementById('mobile-sheet-backdrop');
-      if (sheetBackdrop) sheetBackdrop.classList.add('active');
+      // Only slide up mobile sheet if explicitly requested (e.g. user tapped crossing pin or list item)
+      if (shouldOpenMobile) {
+        window.isMobileSheetOpen = true;
+        mobileSheet.style.transform = '';
+        mobileSheet.classList.remove('translate-y-full');
+        const sheetBackdrop = document.getElementById('mobile-sheet-backdrop');
+        if (sheetBackdrop) sheetBackdrop.classList.add('active');
+      } else if (window.isMobileSheetOpen) {
+        // If already open, keep it open and smoothly update the content without jumping
+        mobileSheet.style.transform = '';
+        mobileSheet.classList.remove('translate-y-full');
+      }
     }
 
+    window.isMobileSheetOpen = false;
+
     window.closeMobileSheet = function() {
+      window.isMobileSheetOpen = false;
+      selectedCrossingData = null;
       const sheet = document.getElementById('mobile-sheet');
       if (sheet) {
         sheet.style.transform = '';
@@ -2415,6 +2434,7 @@
     document.getElementById('drawer-close-btn').addEventListener('click', () => {
       document.getElementById('drawer-active-content').classList.add('hidden');
       selectedCrossingData = null;
+      window.closeMobileSheet();
     });
 
     // --------------------------------------------------------------------------
@@ -2603,7 +2623,8 @@
           markerRegistry.clear();
 
           rpcData.forEach(gate => {
-            if (gate.latitude && gate.longitude) {
+            const isTest = (gate.name || '').toLowerCase().includes('test');
+            if (gate.latitude && gate.longitude && !isTest) {
               renderMarker(gate.id, gate.name, gate.status, gate.latitude, gate.longitude);
             }
           });
@@ -2625,8 +2646,9 @@
 
       if (Array.isArray(data)) {
         data.forEach(gate => {
+          const isTest = (gate.name || '').toLowerCase().includes('test');
           const coords = parseLocation(gate.location);
-          if (coords) {
+          if (coords && !isTest) {
             renderMarker(gate.id, gate.name, gate.status, coords.lat, coords.lon);
           }
         });
@@ -2652,10 +2674,11 @@
           }
         });
 
-        // If the closest crossing is within local driving proximity (< 35km), center map and open drawer
+        // If the closest crossing is within local driving proximity (< 35km), center map and ready drawer
         if (nearestMarker && minD <= 35) {
           map.setView(nearestMarker.getLatLng(), 15);
-          updateDetailDrawer(nearestMarker._crossingData);
+          // On desktop, populate the drawer; on mobile, do NOT self-pop the bottom sheet until user taps
+          updateDetailDrawer(nearestMarker._crossingData, false);
         }
       }
       updateNearbyCrossingsList();
@@ -3453,9 +3476,9 @@
         }
       });
 
-      // If detail drawer is active, refresh its prediction metrics live
+      // If detail drawer is active, refresh its prediction metrics live (without self-popping closed mobile sheet)
       if (selectedCrossingData) {
-        updateDetailDrawer(selectedCrossingData);
+        updateDetailDrawer(selectedCrossingData, false);
       }
 
       // Update counter and list
