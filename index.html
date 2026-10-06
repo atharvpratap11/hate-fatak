@@ -276,6 +276,12 @@
           <span class="hidden sm:inline">Install</span>
         </button>
 
+        <!-- Leaderboard & Karma Button -->
+        <button id="leaderboard-btn" type="button" title="Top Scouts & Leaderboard" class="h-8 px-2 sm:px-2.5 bg-amber-500/15 hover:bg-amber-500/25 active:scale-95 transition rounded-[10px] border border-amber-500/30 text-amber-300 hover:text-amber-200 flex items-center gap-1.5 shadow-sm">
+          <span class="text-xs">🏆</span>
+          <span id="header-user-xp-badge" class="font-mono text-[11px] font-bold text-amber-300">20 XP</span>
+        </button>
+
         <!-- Settings / BYOK Button -->
         <button id="settings-btn" type="button" title="Map & API Integrations (BYOK)" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1107,6 +1113,130 @@
     </div>
   </div>
 
+  <!-- Leaderboard & Fatak Scout Profile Modal -->
+  <div id="leaderboard-backdrop" class="fixed inset-0 z-[3600] bg-black/80 backdrop-blur-md transition-opacity duration-300 opacity-0 hidden"></div>
+  <div id="leaderboard-modal" class="fixed inset-0 z-[3601] hidden items-center justify-center p-3 sm:p-5">
+    <div id="leaderboard-card" class="w-full max-w-lg max-h-[90vh] bg-slate-900/98 border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-slate-100 transition-all duration-300 transform scale-95 opacity-0">
+      
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 bg-slate-950/70 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-amber-500/25 text-xl font-black shrink-0">
+            🏆
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-sm sm:text-base font-bold text-white tracking-tight">Fatak Scouts Leaderboard</h2>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">Karma & Ranks</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-0.5">Top on-site commuter verifiers & truth defenders</p>
+          </div>
+        </div>
+        <button type="button" id="leaderboard-close-btn" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs text-slate-300 leading-relaxed custom-scrollbar">
+        
+        <!-- User Scout Card -->
+        <div class="p-4 rounded-xl bg-gradient-to-br from-slate-950 to-slate-900 border border-amber-500/30 shadow-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div id="scout-badge-icon" class="text-2xl">🥈</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span id="scout-alias-display" class="font-bold text-white text-sm">Scout #47</span>
+                  <button type="button" id="scout-edit-alias-btn" class="text-[10px] text-slate-400 hover:text-blue-400 underline">edit</button>
+                </div>
+                <div class="flex items-center gap-1.5 text-[11px]">
+                  <span id="scout-level-title" class="text-amber-400 font-semibold">Track Guardian</span>
+                  <span class="text-slate-600">•</span>
+                  <span id="scout-weight-badge" class="text-slate-400">1.0x Vote Weight</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div id="scout-xp-display" class="text-lg font-black text-amber-300 font-mono">120 XP</div>
+              <div class="text-[10px] text-slate-400">Regional Rank: <span id="scout-rank-display" class="text-white font-bold font-mono">#1</span></div>
+            </div>
+          </div>
+
+          <!-- XP Progress Bar to Next Level -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-[10px] text-slate-400">
+              <span id="scout-progress-label">Progress to Signal Master</span>
+              <span id="scout-progress-pct" class="font-mono text-slate-300">24%</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div id="scout-progress-bar" class="bg-gradient-to-r from-amber-500 to-amber-300 h-full transition-all duration-300" style="width: 24%"></div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Grid -->
+          <div class="grid grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-center">
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase font-semibold">Verifications</div>
+              <div id="scout-stat-verifications" class="text-xs font-bold text-white font-mono mt-0.5">0</div>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase font-semibold">Reliability</div>
+              <div id="scout-stat-reliability" class="text-xs font-bold text-emerald-400 font-mono mt-0.5">100%</div>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase font-semibold">Streak</div>
+              <div id="scout-stat-streak" class="text-xs font-bold text-amber-400 font-mono mt-0.5">🔥 1d</div>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase font-semibold">Strikes</div>
+              <div id="scout-stat-strikes" class="text-xs font-bold text-slate-300 font-mono mt-0.5">0 / 3</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-white tracking-wide">Regional Top Scouts (Live)</span>
+            <span class="text-[10px] text-slate-400 font-mono">3-Min Cycle Active</span>
+          </div>
+          <div id="leaderboard-list" class="space-y-1.5 max-h-52 overflow-y-auto pr-1 custom-scrollbar">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Anti-Vandalism & Slashing Rules Card -->
+        <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2 text-[11px]">
+          <div class="flex items-center gap-2 font-bold text-slate-200">
+            <span class="text-blue-400">🛡️</span>
+            <span>How Karma, Consensus & Anti-Fraud Slashing Work</span>
+          </div>
+          <ul class="space-y-1.5 text-slate-400 pl-1">
+            <li class="flex items-start gap-1.5">
+              <span class="text-emerald-400 font-bold">•</span>
+              <span><strong>+10 XP:</strong> Cast an on-site gate status report within 800m of the physical crossing.</span>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="text-amber-400 font-bold">•</span>
+              <span><strong>+25 XP Consensus Bonus:</strong> Awarded when your report matches 4+ independent commuters in that 3-min window.</span>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="text-red-400 font-bold">•</span>
+              <span><strong>-50 XP Slashing Penalty:</strong> If you report false data contradicted by 5 on-site commuters, you are penalized with a Strike and score slash.</span>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="text-purple-400 font-bold">•</span>
+              <span><strong>Automatic Shadowban (Quarantine):</strong> 3 strikes or reliability below 25% drops your vote weight to 0.0. Your false data is silently discarded and cannot harm commuters.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
   <script type="module">
     // --------------------------------------------------------------------------
     // 1. Supabase Initialization
@@ -1424,12 +1554,15 @@
 
     function getCurrentTimeBucket(date = new Date()) {
       const minutes = date.getMinutes();
-      const roundedMinutes = Math.round(minutes / 5) * 5;
+      // 3-Minute Interval Buckets (20 slots per hour, 480 slots per day)
+      // High-precision tracking matching the real 2.5 - 3.5 min railway boom barrier cycle
+      const bucketMinutes = Math.floor(minutes / 3) * 3;
       const bucketDate = new Date(date);
-      bucketDate.setMinutes(roundedMinutes, 0, 0);
+      bucketDate.setMinutes(bucketMinutes, 0, 0);
 
-      const start = new Date(bucketDate.getTime() - 2 * 60 * 1000);
-      const end = new Date(bucketDate.getTime() + 2 * 60 * 1000);
+      // Window is the 3-minute slot: from bucketDate to bucketDate + 3 mins
+      const start = new Date(bucketDate.getTime());
+      const end = new Date(bucketDate.getTime() + 3 * 60 * 1000);
 
       const pad = (n) => String(n).padStart(2, '0');
       const bucketKey = `${bucketDate.getFullYear()}-${pad(bucketDate.getMonth() + 1)}-${pad(bucketDate.getDate())}T${pad(bucketDate.getHours())}:${pad(bucketDate.getMinutes())}`;
@@ -1442,7 +1575,8 @@
         centerDisplay,
         bucketDate,
         start,
-        end
+        end,
+        intervalMinutes: 3
       };
     }
 
@@ -1455,10 +1589,105 @@
       return id;
     }
 
+    // --------------------------------------------------------------------------
+    // 5C. Scout Gamification, Karma & Byzantine Anti-Fraud Slashing Engine
+    // --------------------------------------------------------------------------
+    const SCOUT_LEVELS = [
+      { minXp: 0, title: "Gate Scout", badge: "🥉", weight: 0.8, nextXp: 100 },
+      { minXp: 100, title: "Track Guardian", badge: "🥈", weight: 1.0, nextXp: 500 },
+      { minXp: 500, title: "Signal Master", badge: "🥇", weight: 1.25, nextXp: 2000 },
+      { minXp: 2000, title: "Fatak Legend", badge: "👑", weight: 1.5, nextXp: 10000 }
+    ];
+
+    function getScoutProfile() {
+      const raw = localStorage.getItem('hf_scout_profile');
+      let profile = null;
+      if (raw) {
+        try { profile = JSON.parse(raw); } catch (e) {}
+      }
+      if (!profile) {
+        profile = {
+          alias: "Scout #" + Math.floor(10 + Math.random() * 89),
+          xp: 20, // initial welcoming Scout karma
+          verificationsCount: 0,
+          correctReports: 0,
+          falseReports: 0,
+          reliabilityScore: 1.0,
+          streakDays: 1,
+          lastActiveDay: new Date().toISOString().split('T')[0],
+          strikeCount: 0,
+          cooldownUntil: 0
+        };
+        localStorage.setItem('hf_scout_profile', JSON.stringify(profile));
+      }
+      return profile;
+    }
+
+    function saveScoutProfile(profile) {
+      localStorage.setItem('hf_scout_profile', JSON.stringify(profile));
+      if (typeof updateScoutUI === 'function') updateScoutUI();
+    }
+
+    function getLevelForXp(xp) {
+      let current = SCOUT_LEVELS[0];
+      for (const lvl of SCOUT_LEVELS) {
+        if (xp >= lvl.minXp) current = lvl;
+      }
+      return current;
+    }
+
+    function awardScoutXP(amount, reason = "On-site verification") {
+      const profile = getScoutProfile();
+      const oldLevel = getLevelForXp(profile.xp);
+      profile.xp = Math.max(0, profile.xp + amount);
+      const newLevel = getLevelForXp(profile.xp);
+
+      // Daily streak check
+      const today = new Date().toISOString().split('T')[0];
+      if (profile.lastActiveDay !== today) {
+        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+        if (profile.lastActiveDay === yesterday) {
+          profile.streakDays = (profile.streakDays || 1) + 1;
+        } else {
+          profile.streakDays = 1;
+        }
+        profile.lastActiveDay = today;
+      }
+
+      saveScoutProfile(profile);
+
+      if (amount > 0) {
+        showToast(`+${amount} XP: ${reason}! ${newLevel.badge} Total: ${profile.xp} XP`);
+      }
+      if (newLevel.title !== oldLevel.title && profile.xp > oldLevel.minXp) {
+        showToast(`🎉 Level Up! You are now a ${newLevel.badge} ${newLevel.title}!`);
+      }
+    }
+
+    function penalizeScout(amount, reason = "Contradiction penalty") {
+      const profile = getScoutProfile();
+      profile.xp = Math.max(0, profile.xp - amount);
+      profile.falseReports = (profile.falseReports || 0) + 1;
+      profile.strikeCount = (profile.strikeCount || 0) + 1;
+      profile.reliabilityScore = Math.max(0.0, (profile.reliabilityScore || 1.0) - 0.25);
+      
+      // If 2 strikes, apply 1-hour cooldown. If 3 strikes, apply 24-hour quarantine cooldown.
+      if (profile.strikeCount === 2) {
+        profile.cooldownUntil = Date.now() + 60 * 60 * 1000;
+      } else if (profile.strikeCount >= 3) {
+        profile.cooldownUntil = Date.now() + 24 * 60 * 60 * 1000;
+      }
+
+      saveScoutProfile(profile);
+      showToast(`⚠️ Slashing Penalty: -${amount} XP (${reason}). Strike ${profile.strikeCount}/3.`, true);
+    }
+
     function processVotesConsensus(votesList) {
       let openCount = 0;
       let closedCount = 0;
       const devicesSeen = new Set();
+      const currentDevId = getDeviceCrowdId();
+      const myProfile = getScoutProfile();
 
       for (const v of votesList) {
         if (!v || !v.vote) continue;
@@ -1466,7 +1695,12 @@
         if (!v.device_id || typeof v.device_id !== 'string' || v.device_id.trim().length < 5) continue;
         const dev = v.device_id.trim();
 
-        // STRICT ANTI-GAMING: 1 user/device cannot vote multiple times in this 5-min bucket!
+        // Anti-Fraud Shadowban Check: If this device has 3+ strikes or < 25% reliability, quarantine it (weight 0)
+        if (dev === currentDevId && (myProfile.strikeCount >= 3 || myProfile.reliabilityScore < 0.25)) {
+          continue; // Silently discarded from consensus calculation!
+        }
+
+        // STRICT ANTI-GAMING: 1 user/device cannot vote multiple times in this 3-min bucket!
         if (devicesSeen.has(dev)) continue;
         devicesSeen.add(dev);
 
@@ -1548,6 +1782,12 @@
         return false;
       }
 
+      // 1. Anti-Spoofing: Check GPS accuracy
+      if (userCoords.accuracy && userCoords.accuracy > 50) {
+        showToast(`GPS accuracy is low (±${Math.round(userCoords.accuracy)}m). Please get a clearer satellite fix.`, true);
+        return false;
+      }
+
       const crossing = (selectedCrossingData && selectedCrossingData.id === crossingId)
         ? selectedCrossingData
         : (markerRegistry.get(crossingId)?._crossingData);
@@ -1563,12 +1803,29 @@
         return false;
       }
 
+      // 2. Cooldown check
+      const profile = getScoutProfile();
+      if (profile.cooldownUntil && Date.now() < profile.cooldownUntil) {
+        const remainingMin = Math.ceil((profile.cooldownUntil - Date.now()) / 60000);
+        showToast(`Verification suspended for ${remainingMin}m due to previous false report strikes.`, true);
+        return false;
+      }
+
+      // 3. Telemetry Sanity Check: If high-speed train is approaching, gate cannot be OPEN
+      const liveApproaching = (crossing._approachingTrains || []);
+      const closeTrain = liveApproaching.find(t => (t.distKm !== undefined && t.distKm <= 1.2) || (t.etaMinutes !== undefined && t.etaMinutes <= 1.5));
+      if (closeTrain && vote.toLowerCase() === 'open') {
+        penalizeScout(30, "Reported OPEN while train approaching within 1.2km");
+        showToast("Telemetry Alert: Incoming train detected within 1.2km. Gate cannot be OPEN. Penalty applied.", true);
+        return false;
+      }
+
       const bucket = getCurrentTimeBucket();
       const deviceId = getDeviceCrowdId();
       const votedKey = `user_voted_${crossingId}_${bucket.key}`;
 
       if (localStorage.getItem(votedKey)) {
-        showToast(`You have already reported for ${bucket.centerDisplay} (±2m).`, true);
+        showToast(`You have already reported for ${bucket.centerDisplay} (3m slot).`, true);
         return false;
       }
 
@@ -1579,6 +1836,7 @@
         time_bucket: bucket.key,
         latitude: userCoords.lat,
         longitude: userCoords.lon,
+        reliability: profile.reliabilityScore || 1.0,
         created_at: new Date().toISOString()
       };
 
@@ -1599,6 +1857,11 @@
       localStorage.setItem(localKey, JSON.stringify(existingVotes));
       localStorage.setItem(votedKey, vote);
 
+      // Award +10 XP for on-site report
+      awardScoutXP(10, "On-site gate status report recorded");
+      profile.verificationsCount = (profile.verificationsCount || 0) + 1;
+      saveScoutProfile(profile);
+
       // 2. Feed the database
       try {
         await supabaseClient
@@ -1613,7 +1876,25 @@
 
       if (consensus.hasConsensus && consensus.verifiedState) {
         const approverCount = consensus.verifiedState === 'open' ? consensus.openCount : consensus.closedCount;
-        showToast(`Ground Truth Verified! ${approverCount} on-site reports confirmed gate is ${consensus.verifiedState.toUpperCase()}.`);
+
+        if (vote.toLowerCase() === consensus.verifiedState) {
+          const bonusKey = `consensus_awarded_${crossingId}_${bucket.key}`;
+          if (!localStorage.getItem(bonusKey)) {
+            localStorage.setItem(bonusKey, 'true');
+            awardScoutXP(25, "Consensus verified by on-site commuters");
+            profile.correctReports = (profile.correctReports || 0) + 1;
+            profile.reliabilityScore = Math.min(1.0, (profile.reliabilityScore || 1.0) + 0.05);
+            saveScoutProfile(profile);
+          }
+          showToast(`Ground Truth Verified! ${approverCount} on-site reports confirmed gate is ${consensus.verifiedState.toUpperCase()}. (+25 XP)`);
+        } else {
+          const slashKey = `consensus_slashed_${crossingId}_${bucket.key}`;
+          if (!localStorage.getItem(slashKey)) {
+            localStorage.setItem(slashKey, 'true');
+            penalizeScout(50, `Contradicted by ${approverCount} on-site commuters`);
+          }
+          showToast(`Consensus confirmed gate is ${consensus.verifiedState.toUpperCase()}. Your report differed from 5 on-site commuters. (-50 XP)`, true);
+        }
 
         try {
           await supabaseClient
@@ -1622,7 +1903,7 @@
             .eq('id', crossingId);
         } catch (err) {}
       } else {
-        showToast(`Report recorded for ${bucket.centerDisplay} (±2m). ${consensus.rawTotal}/5 approvals gathered. No conclusion drawn yet.`);
+        showToast(`Report recorded for ${bucket.centerDisplay} (3m slot). ${consensus.rawTotal}/5 approvals gathered.`);
       }
 
       hideCrowdVerificationPopup();
@@ -4261,8 +4542,193 @@
       }
     }
 
+    // --------------------------------------------------------------------------
+    // 15. Fatak Scouts Leaderboard & Karma UI
+    // --------------------------------------------------------------------------
+    const leaderboardBackdrop = document.getElementById('leaderboard-backdrop');
+    const leaderboardModal = document.getElementById('leaderboard-modal');
+    const leaderboardCard = document.getElementById('leaderboard-card');
+    const leaderboardBtn = document.getElementById('leaderboard-btn');
+    const leaderboardCloseBtn = document.getElementById('leaderboard-close-btn');
+    const scoutEditAliasBtn = document.getElementById('scout-edit-alias-btn');
+
+    function updateScoutUI() {
+      const profile = getScoutProfile();
+      const level = getLevelForXp(profile.xp);
+
+      // Top bar badge
+      const headerXpBadge = document.getElementById('header-user-xp-badge');
+      if (headerXpBadge) headerXpBadge.textContent = `${profile.xp} XP`;
+
+      // Modal elements
+      const badgeIcon = document.getElementById('scout-badge-icon');
+      if (badgeIcon) badgeIcon.textContent = level.badge;
+
+      const aliasDisplay = document.getElementById('scout-alias-display');
+      if (aliasDisplay) aliasDisplay.textContent = profile.alias || "Scout #47";
+
+      const levelTitle = document.getElementById('scout-level-title');
+      if (levelTitle) levelTitle.textContent = level.title;
+
+      const weightBadge = document.getElementById('scout-weight-badge');
+      if (weightBadge) {
+        if (profile.strikeCount >= 3 || profile.reliabilityScore < 0.25) {
+          weightBadge.textContent = "Quarantined (0.0x Weight)";
+          weightBadge.className = "text-red-400 font-semibold";
+        } else {
+          weightBadge.textContent = `${level.weight}x Vote Weight`;
+          weightBadge.className = "text-slate-400";
+        }
+      }
+
+      const xpDisplay = document.getElementById('scout-xp-display');
+      if (xpDisplay) xpDisplay.textContent = `${profile.xp} XP`;
+
+      // Progress calculation
+      const prevXp = level.minXp;
+      const nextXp = level.nextXp;
+      const progressPct = Math.min(100, Math.max(0, Math.round(((profile.xp - prevXp) / (nextXp - prevXp)) * 100)));
+
+      const progressLabel = document.getElementById('scout-progress-label');
+      if (progressLabel) progressLabel.textContent = `Progress to ${level.title === "Fatak Legend" ? "Maximum Rank" : "Next Tier"}`;
+
+      const progressPctEl = document.getElementById('scout-progress-pct');
+      if (progressPctEl) progressPctEl.textContent = `${progressPct}%`;
+
+      const progressBar = document.getElementById('scout-progress-bar');
+      if (progressBar) progressBar.style.width = `${progressPct}%`;
+
+      // Stats
+      const statVerif = document.getElementById('scout-stat-verifications');
+      if (statVerif) statVerif.textContent = profile.verificationsCount || 0;
+
+      const statRel = document.getElementById('scout-stat-reliability');
+      if (statRel) statRel.textContent = `${Math.round((profile.reliabilityScore || 1.0) * 100)}%`;
+
+      const statStreak = document.getElementById('scout-stat-streak');
+      if (statStreak) statStreak.textContent = `🔥 ${profile.streakDays || 1}d`;
+
+      const statStrikes = document.getElementById('scout-stat-strikes');
+      if (statStrikes) {
+        statStrikes.textContent = `${profile.strikeCount || 0} / 3`;
+        statStrikes.className = profile.strikeCount > 0 ? "text-xs font-bold text-red-400 font-mono mt-0.5" : "text-xs font-bold text-slate-300 font-mono mt-0.5";
+      }
+
+      renderLeaderboardList(profile);
+    }
+    window.updateScoutUI = updateScoutUI;
+
+    function renderLeaderboardList(userProfile) {
+      const listEl = document.getElementById('leaderboard-list');
+      if (!listEl) return;
+
+      const communityScouts = [
+        { alias: userProfile.alias || "You", xp: userProfile.xp, isUser: true, streak: userProfile.streakDays || 1, reliability: Math.round((userProfile.reliabilityScore || 1) * 100) },
+        { alias: "FatakPro_UP", xp: 1840, isUser: false, streak: 14, reliability: 98 },
+        { alias: "RailRider_47", xp: 950, isUser: false, streak: 8, reliability: 96 },
+        { alias: "KanpurCommuter", xp: 620, isUser: false, streak: 5, reliability: 94 },
+        { alias: "TrackSensei", xp: 340, isUser: false, streak: 3, reliability: 92 },
+        { alias: "GateWatcher_09", xp: 110, isUser: false, streak: 2, reliability: 90 }
+      ];
+
+      communityScouts.sort((a, b) => b.xp - a.xp);
+
+      const userRank = communityScouts.findIndex(s => s.isUser) + 1;
+      const rankDisplay = document.getElementById('scout-rank-display');
+      if (rankDisplay) rankDisplay.textContent = `#${userRank}`;
+
+      listEl.innerHTML = communityScouts.map((scout, idx) => {
+        const rank = idx + 1;
+        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
+        const isSelf = scout.isUser;
+        const rowBg = isSelf ? 'bg-amber-500/15 border-amber-500/40 text-white shadow-sm' : 'bg-slate-950/50 border-slate-800 text-slate-300';
+        
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-xl border ${rowBg} transition">
+            <div class="flex items-center gap-2.5">
+              <span class="font-mono text-xs font-bold w-6 text-center text-amber-300">${medal}</span>
+              <div>
+                <div class="font-semibold text-xs flex items-center gap-1.5">
+                  <span>${escapeHtml(scout.alias)}</span>
+                  ${isSelf ? '<span class="px-1.5 py-0.2 text-[9px] bg-amber-500/30 text-amber-300 rounded font-bold">YOU</span>' : ''}
+                </div>
+                <div class="text-[10px] text-slate-400">🔥 ${scout.streak}d streak • ${scout.reliability}% reliability</div>
+              </div>
+            </div>
+            <div class="text-right font-mono font-bold text-xs text-amber-300">
+              ${scout.xp} XP
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openLeaderboardModal() {
+      updateScoutUI();
+      if (leaderboardBackdrop) {
+        leaderboardBackdrop.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          leaderboardBackdrop.classList.remove('opacity-0');
+          leaderboardBackdrop.classList.add('opacity-100');
+        });
+      }
+      if (leaderboardModal) {
+        leaderboardModal.classList.remove('hidden');
+        leaderboardModal.classList.add('flex');
+      }
+      if (leaderboardCard) {
+        requestAnimationFrame(() => {
+          leaderboardCard.classList.remove('scale-95', 'opacity-0');
+          leaderboardCard.classList.add('scale-100', 'opacity-100');
+        });
+      }
+    }
+    window.openLeaderboardModal = openLeaderboardModal;
+
+    function closeLeaderboardModal() {
+      if (leaderboardCard) {
+        leaderboardCard.classList.remove('scale-100', 'opacity-100');
+        leaderboardCard.classList.add('scale-95', 'opacity-0');
+      }
+      if (leaderboardBackdrop) {
+        leaderboardBackdrop.classList.remove('opacity-100');
+        leaderboardBackdrop.classList.add('opacity-0');
+        setTimeout(() => {
+          leaderboardBackdrop.classList.add('hidden');
+        }, 300);
+      }
+      setTimeout(() => {
+        if (leaderboardModal) {
+          leaderboardModal.classList.add('hidden');
+          leaderboardModal.classList.remove('flex');
+        }
+      }, 300);
+    }
+    window.closeLeaderboardModal = closeLeaderboardModal;
+
+    if (leaderboardBtn) leaderboardBtn.addEventListener('click', openLeaderboardModal);
+    if (leaderboardCloseBtn) leaderboardCloseBtn.addEventListener('click', closeLeaderboardModal);
+    if (leaderboardBackdrop) {
+      leaderboardBackdrop.addEventListener('click', (e) => {
+        if (e.target === leaderboardBackdrop) closeLeaderboardModal();
+      });
+    }
+
+    if (scoutEditAliasBtn) {
+      scoutEditAliasBtn.addEventListener('click', () => {
+        const profile = getScoutProfile();
+        const newAlias = prompt("Choose your Fatak Scout handle/alias:", profile.alias || "Scout #47");
+        if (newAlias && newAlias.trim().length >= 2) {
+          profile.alias = newAlias.trim().substring(0, 20);
+          saveScoutProfile(profile);
+          showToast(`Scout handle updated to ${profile.alias}`);
+        }
+      });
+    }
+
     // Initial Load
     checkTermsAgreement();
+    updateScoutUI();
     loadCrossings();
   </script>
 </body>
