@@ -2624,7 +2624,8 @@
 
           rpcData.forEach(gate => {
             const isTest = (gate.name || '').toLowerCase().includes('test');
-            if (gate.latitude && gate.longitude && !isTest) {
+            const isRemoved = gate.id === 6 || gate.id === 7;
+            if (gate.latitude && gate.longitude && !isTest && !isRemoved) {
               renderMarker(gate.id, gate.name, gate.status, gate.latitude, gate.longitude);
             }
           });
@@ -2647,8 +2648,9 @@
       if (Array.isArray(data)) {
         data.forEach(gate => {
           const isTest = (gate.name || '').toLowerCase().includes('test');
+          const isRemoved = gate.id === 6 || gate.id === 7;
           const coords = parseLocation(gate.location);
-          if (coords && !isTest) {
+          if (coords && !isTest && !isRemoved) {
             renderMarker(gate.id, gate.name, gate.status, coords.lat, coords.lon);
           }
         });
@@ -2698,7 +2700,7 @@
     const duplicateWarningText = document.getElementById('duplicate-warning-text');
 
     let currentDuplicateCrossing = null;
-    const DUPLICATE_THRESHOLD_METERS = 60; // 60m radius threshold for preventing duplicates
+    const DUPLICATE_THRESHOLD_METERS = 400; // 400m radius threshold for preventing duplicates
 
     function findNearbyDuplicateCrossing(lat, lon, candidateName = '') {
       let closest = null;
@@ -2710,7 +2712,8 @@
           const dM = dKm * 1000;
           const sameName = candidateName && marker._crossingData.name.toLowerCase().trim() === candidateName.toLowerCase().trim();
 
-          if (dM <= DUPLICATE_THRESHOLD_METERS || (sameName && dM < 400)) {
+          // Reject / merge if within 400m radius OR if same name within 800m
+          if (dM <= DUPLICATE_THRESHOLD_METERS || (sameName && dM < 800)) {
             if (dM < minDistanceM) {
               minDistanceM = dM;
               closest = { data: marker._crossingData, distM: Math.round(dM) };
