@@ -143,12 +143,13 @@
       background: #0f172a;
     }
 
-    /* True Dark Mode for OpenStreetMap tiles without shifting provider */
-    .map-tiles-dark .leaflet-tile-pane,
-    .map-tiles-dark .leaflet-tile-container img,
-    .map-tiles-dark .leaflet-tile {
-      filter: brightness(0.65) invert(1) contrast(2.8) hue-rotate(200deg) saturate(0.35) !important;
-      -webkit-filter: brightness(0.65) invert(1) contrast(2.8) hue-rotate(200deg) saturate(0.35) !important;
+    /* True Dark Mode for OpenStreetMap tiles across all desktop & mobile browsers */
+    .map-tiles-dark .leaflet-tile,
+    .map-tiles-dark .leaflet-tile-pane img,
+    .map-tiles-dark .leaflet-layer img,
+    img.dark-tile {
+      -webkit-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7) !important;
+      filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7) !important;
     }
 
     /* User Location Radar Pulse */
@@ -1812,11 +1813,12 @@
         // Pure OpenStreetMap (Always OpenStreetMap, no Carto switch)
         currentMapTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
+          className: isDark ? 'dark-tile' : '',
           attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Apply dark mode CSS inversion filter directly on the OpenStreetMap tiles
-        const mapContainer = map.getContainer() || document.getElementById('map');
+        // Apply dark mode CSS class to map container and tile pane
+        const mapContainer = document.getElementById('map');
         if (mapContainer) {
           if (isDark) {
             mapContainer.classList.add('map-tiles-dark');
