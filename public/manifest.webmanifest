@@ -1,0 +1,26 @@
+{
+  "name": "Hate Fatak - Live Railway Crossing Status",
+  "short_name": "Hate Fatak",
+  "description": "Live railway crossing status, crowd verification, and predictive gate schedules across India",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "categories": ["transportation", "navigation", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

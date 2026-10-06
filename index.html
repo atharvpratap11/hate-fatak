@@ -6,6 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Hate Fatak - Live Railway Crossing Status & Predictions</title>
 
+  <!-- PWA & Chrome App Web Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Hate Fatak" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+
   <!-- Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -246,6 +255,16 @@
           </svg>
           <span class="hidden sm:inline">Search</span>
           <kbd class="hidden md:inline-block px-1 py-0.2 text-[9px] bg-slate-900/80 border border-slate-700/60 rounded text-slate-400 font-mono">⌘K</kbd>
+        </button>
+
+        <!-- Install Chrome App Button (Shown when installable) -->
+        <button id="install-app-btn" type="button" title="Install Hate Fatak as Chrome App" class="hidden text-xs font-semibold px-2.5 sm:px-3 py-1.5 bg-emerald-600/90 hover:bg-emerald-500 text-white rounded-[10px] transition active:scale-95 items-center gap-1.5 shadow-sm border border-emerald-500/40">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="hidden sm:inline">Install</span>
         </button>
 
         <!-- Settings / BYOK Button -->
@@ -797,6 +816,20 @@
             <div id="advisor-note" class="text-[10px] text-slate-300 p-2.5 rounded-[10px] bg-slate-950/40 border border-slate-800/60 leading-relaxed">
               Zero setup required. 100% free forever for all phone users without entering any API keys or billing info.
             </div>
+          </div>
+
+          <!-- PWA / Chrome App Installation Card -->
+          <div class="p-3.5 rounded-[14px] bg-emerald-950/30 border border-emerald-800/50 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="text-xs font-bold text-emerald-300">Download Chrome App</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5">Install on PC or Android for standalone window & instant launch.</p>
+            </div>
+            <button id="settings-install-app-btn" type="button" class="shrink-0 px-3 py-1.5 rounded-[10px] bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition active:scale-95 shadow-sm">
+              Install App
+            </button>
           </div>
         </div>
 
@@ -3845,6 +3878,82 @@
         }, { passive: true });
       }
     })();
+
+    // --------------------------------------------------------------------------
+    // 16. Chrome PWA / Chrome App Installation & Service Worker Setup
+    // --------------------------------------------------------------------------
+    let deferredInstallPrompt = null;
+    const installBtnHeader = document.getElementById('install-app-btn');
+    const installBtnSettings = document.getElementById('settings-install-app-btn');
+
+    function updateInstallButtons(show) {
+      if (installBtnHeader) {
+        if (show) {
+          installBtnHeader.classList.remove('hidden');
+          installBtnHeader.classList.add('flex');
+        } else {
+          installBtnHeader.classList.add('hidden');
+          installBtnHeader.classList.remove('flex');
+        }
+      }
+      if (installBtnSettings) {
+        if (show) {
+          installBtnSettings.textContent = 'Install App';
+        } else if (window.matchMedia('(display-mode: standalone)').matches) {
+          installBtnSettings.textContent = 'Installed';
+          installBtnSettings.disabled = true;
+          installBtnSettings.classList.add('opacity-60', 'cursor-default');
+        }
+      }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent automatic mini-infobar on Chrome
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      updateInstallButtons(true);
+    });
+
+    async function triggerChromeAppInstall() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const choice = await deferredInstallPrompt.userChoice;
+        if (choice.outcome === 'accepted') {
+          showToast("Installing Hate Fatak to your device...");
+        }
+        deferredInstallPrompt = null;
+        updateInstallButtons(false);
+      } else {
+        // Fallback for browsers or when already installed / prompt not ready
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+          showToast("Hate Fatak is already running as an installed app!");
+        } else {
+          showToast("To install in Chrome: Click ⋮ (menu) > 'Install Hate Fatak' or 'Save and share' > 'Install'.");
+        }
+      }
+    }
+
+    if (installBtnHeader) installBtnHeader.addEventListener('click', triggerChromeAppInstall);
+    if (installBtnSettings) installBtnSettings.addEventListener('click', triggerChromeAppInstall);
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      updateInstallButtons(false);
+      showToast("Hate Fatak installed successfully!");
+    });
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => {
+            console.log('Hate Fatak ServiceWorker registered:', reg.scope);
+          })
+          .catch((err) => {
+            console.warn('Hate Fatak ServiceWorker registration failed:', err);
+          });
+      });
+    }
 
     // Initial Load
     loadCrossings();
