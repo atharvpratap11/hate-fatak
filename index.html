@@ -143,7 +143,21 @@
     }
 
     .sheet-transition {
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+      transition: transform 0.42s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease;
+      will-change: transform;
+    }
+
+    /* Bottom Sheet Backdrop */
+    #mobile-sheet-backdrop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    #mobile-sheet-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     /* Apple Liquid Crystal Glass */
@@ -172,6 +186,21 @@
         0 4px 12px -2px rgba(0, 0, 0, 0.25),
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
     }
+
+    /* Grab bar styling and micro-interaction */
+    .sheet-drag-handle {
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .sheet-drag-pill {
+      transition: width 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+    .sheet-drag-handle:active .sheet-drag-pill {
+      width: 56px;
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: scaleY(1.2);
+    }
   </style>
 </head>
 
@@ -182,9 +211,9 @@
     <div id="map" class="w-full h-full z-0"></div>
 
     <!-- Modern Floating Top Navigation Header -->
-    <header class="absolute top-4 left-4 right-4 md:left-6 md:right-6 z-[1000] floating-glass rounded-[18px] px-4 md:px-6 py-2.5 flex items-center justify-between transition-all">
-      <div class="flex items-center gap-3.5">
-        <div class="w-8 h-8 rounded-[10px] bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-slate-300">
+    <header class="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 md:left-6 md:right-6 z-[1000] floating-glass rounded-[20px] px-3.5 sm:px-5 md:px-6 py-2.5 flex items-center justify-between gap-2 transition-all">
+      <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+        <div class="w-8 h-8 rounded-[10px] bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-slate-300 shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="3" width="16" height="18" rx="2"></rect>
             <path d="M4 11h16"></path>
@@ -193,22 +222,22 @@
             <path d="M16 19l2 3"></path>
           </svg>
         </div>
-        <div>
-          <h1 class="text-sm font-semibold tracking-tight text-white leading-tight">
+        <div class="min-w-0">
+          <h1 class="text-xs sm:text-sm font-semibold tracking-tight text-white leading-tight truncate">
             Hate Fatak
           </h1>
-          <div class="flex items-center gap-2 mt-0.5">
-            <span class="text-[10px] text-emerald-400 font-medium">Live</span>
-            <span class="text-slate-600 text-[10px]">•</span>
-            <span id="crossing-count" class="text-[10px] text-slate-400">0 Crossings</span>
+          <div class="flex items-center gap-1.5 sm:gap-2 mt-0.5 whitespace-nowrap">
+            <span class="text-[9px] sm:text-[10px] text-emerald-400 font-medium">Live</span>
+            <span class="text-slate-600 text-[9px] sm:text-[10px]">•</span>
+            <span id="crossing-count" class="text-[9px] sm:text-[10px] text-slate-400">0 Crossings</span>
           </div>
         </div>
       </div>
 
       <!-- Actions -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <!-- Search Button -->
-        <button id="search-btn" type="button" title="Search Crossings & Stations (⌘K or /)" class="text-xs font-medium px-3 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 flex items-center gap-1.5 shadow-sm">
+        <button id="search-btn" type="button" title="Search Crossings & Stations (⌘K or /)" class="w-8 h-8 sm:w-auto text-xs font-medium px-0 sm:px-3 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 flex items-center justify-center gap-1.5 shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -217,8 +246,8 @@
           <kbd class="hidden md:inline-block px-1 py-0.2 text-[9px] bg-slate-900/80 border border-slate-700/60 rounded text-slate-400 font-mono">⌘K</kbd>
         </button>
 
-        <!-- Scan Tracks Button -->
-        <button id="scan-tracks-btn" type="button" title="Scan OpenStreetMap track nodes" class="hidden sm:flex text-xs font-medium px-3.5 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 items-center gap-1.5">
+        <!-- Scan Tracks Button (Desktop & Tablet) -->
+        <button id="scan-tracks-btn" type="button" title="Scan OpenStreetMap track nodes" class="hidden md:flex text-xs font-medium px-3.5 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 items-center gap-1.5">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -227,17 +256,17 @@
         </button>
 
         <!-- Add Crossing Button -->
-        <button id="add-crossing-btn" type="button" class="text-xs font-semibold px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-[10px] transition active:scale-95 flex items-center gap-1.5 shadow-sm">
+        <button id="add-crossing-btn" type="button" class="text-xs font-semibold px-2.5 sm:px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-[10px] transition active:scale-95 flex items-center gap-1 sm:gap-1.5 shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          <span>Add Crossing</span>
+          <span class="text-[11px] sm:text-xs">Add Crossing</span>
         </button>
 
-        <!-- Locate Button (Right-most section) -->
+        <!-- Locate Button -->
         <button id="locate-btn" type="button" title="Locate Current Position" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="7"></circle>
             <line x1="12" y1="1" x2="12" y2="5"></line>
             <line x1="12" y1="19" x2="12" y2="23"></line>
@@ -246,9 +275,9 @@
           </svg>
         </button>
 
-        <!-- Settings / BYOK Button (Right-most section) -->
+        <!-- Settings / BYOK Button -->
         <button id="settings-btn" type="button" title="Map & API Integrations (BYOK)" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
@@ -457,9 +486,14 @@
       </button>
     </div>
 
+    <!-- Mobile Bottom Sheet Backdrop -->
+    <div id="mobile-sheet-backdrop" class="fixed inset-0 bg-slate-950/60 z-[1990] md:hidden" onclick="closeMobileSheet()"></div>
+
     <!-- Mobile Bottom Sheet (slides up on phones) -->
-    <div id="mobile-sheet" class="sheet-transition md:hidden fixed bottom-0 left-0 right-0 z-[2000] translate-y-full floating-glass rounded-t-[28px] p-6 shadow-2xl max-h-[85vh] overflow-y-auto pb-10">
-      <div class="w-10 h-1 bg-slate-700/80 rounded-full mx-auto mb-4 cursor-pointer" onclick="closeMobileSheet()"></div>
+    <div id="mobile-sheet" class="sheet-transition md:hidden fixed bottom-0 left-0 right-0 z-[2000] translate-y-full floating-glass rounded-t-[32px] p-6 shadow-2xl max-h-[85vh] overflow-y-auto pb-10">
+      <div id="mobile-sheet-drag-handle" class="sheet-drag-handle w-full flex flex-col items-center justify-center py-2 -mt-3 mb-3 cursor-grab active:cursor-grabbing">
+        <div class="sheet-drag-pill w-11 h-1.5 bg-slate-500/70 rounded-full"></div>
+      </div>
 
       <!-- Mobile Content Area -->
       <div id="mobile-sheet-content" class="space-y-5">
@@ -2116,11 +2150,21 @@
       // Automatically check and show on-site verification popup if user is near
       checkAndShowCrowdVerificationPopup(crossing);
 
+      // Open mobile sheet and backdrop smoothly
+      mobileSheet.style.transform = '';
       mobileSheet.classList.remove('translate-y-full');
+      const sheetBackdrop = document.getElementById('mobile-sheet-backdrop');
+      if (sheetBackdrop) sheetBackdrop.classList.add('active');
     }
 
     window.closeMobileSheet = function() {
-      document.getElementById('mobile-sheet').classList.add('translate-y-full');
+      const sheet = document.getElementById('mobile-sheet');
+      if (sheet) {
+        sheet.style.transform = '';
+        sheet.classList.add('translate-y-full');
+      }
+      const sheetBackdrop = document.getElementById('mobile-sheet-backdrop');
+      if (sheetBackdrop) sheetBackdrop.classList.remove('active');
     };
 
     document.getElementById('drawer-close-btn').addEventListener('click', () => {
@@ -3253,7 +3297,10 @@
 
       html += `</div>`;
       mobileContent.innerHTML = html;
+      mobileSheet.style.transform = '';
       mobileSheet.classList.remove('translate-y-full');
+      const sheetBackdrop = document.getElementById('mobile-sheet-backdrop');
+      if (sheetBackdrop) sheetBackdrop.classList.add('active');
     };
 
     // Wire Crowd Verification Popup Buttons
@@ -3287,6 +3334,77 @@
         openMobileNearbyList();
       });
     }
+
+    // --------------------------------------------------------------------------
+    // 15. Fluid Touch Swipe-Down Physics for Mobile Bottom Sheet
+    // --------------------------------------------------------------------------
+    (function setupMobileSheetSwipeGestures() {
+      const sheet = document.getElementById('mobile-sheet');
+      const dragHandle = document.getElementById('mobile-sheet-drag-handle');
+      if (!sheet) return;
+
+      let startY = 0;
+      let currentY = 0;
+      let isDragging = false;
+      let isHandleTouch = false;
+
+      function onTouchStart(e) {
+        if (e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        startY = touch.clientY;
+        currentY = startY;
+        isHandleTouch = dragHandle ? dragHandle.contains(e.target) : false;
+
+        // Only allow dragging from top handle or when content is scrolled to very top
+        if (isHandleTouch || sheet.scrollTop <= 2) {
+          isDragging = true;
+          sheet.style.transition = 'none'; // Instant 1:1 finger tracking
+        }
+      }
+
+      function onTouchMove(e) {
+        if (!isDragging || e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        const deltaY = touch.clientY - startY;
+
+        // If pulling downwards
+        if (deltaY > 0) {
+          // If dragging started from inside scrollable content, prevent native scroll conflict
+          if (sheet.scrollTop <= 0) {
+            e.preventDefault();
+          }
+          currentY = touch.clientY;
+          sheet.style.transform = `translateY(${deltaY}px)`;
+        } else if (isHandleTouch) {
+          // Slight rubber-band resistance when pulling up on handle
+          e.preventDefault();
+          const resistanceY = deltaY * 0.2;
+          sheet.style.transform = `translateY(${resistanceY}px)`;
+        }
+      }
+
+      function onTouchEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        const deltaY = currentY - startY;
+
+        // Restore smooth Apple spring physics
+        sheet.style.transition = 'transform 0.42s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease';
+
+        // Velocity or distance threshold to close (pulled down > 110px or fast swipe down)
+        if (deltaY > 110) {
+          closeMobileSheet();
+        } else {
+          // Snap back to open position
+          sheet.style.transform = 'translateY(0)';
+        }
+      }
+
+      sheet.addEventListener('touchstart', onTouchStart, { passive: false });
+      sheet.addEventListener('touchmove', onTouchMove, { passive: false });
+      sheet.addEventListener('touchend', onTouchEnd, { passive: true });
+      sheet.addEventListener('touchcancel', onTouchEnd, { passive: true });
+    })();
 
     // Initial Load
     loadCrossings();
