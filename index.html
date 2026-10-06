@@ -40,6 +40,7 @@
     #settings-card::-webkit-scrollbar,
     #nearby-crossings-list::-webkit-scrollbar,
     #station-platforms-list::-webkit-scrollbar,
+    #mobile-platforms-list::-webkit-scrollbar,
     #search-results-list::-webkit-scrollbar,
     #mobile-sheet::-webkit-scrollbar {
       display: none !important;
@@ -53,6 +54,7 @@
     #settings-card,
     #nearby-crossings-list,
     #station-platforms-list,
+    #mobile-platforms-list,
     #search-results-list,
     #mobile-sheet {
       -ms-overflow-style: none !important;
@@ -443,8 +445,8 @@
             <span class="text-[11px] text-slate-400 font-medium">Arrivals</span>
           </div>
 
-          <!-- Platform Trains List -->
-          <div id="station-platforms-list" class="space-y-2.5 max-h-52 overflow-y-auto pr-1">
+          <!-- Platform Trains List (Horizontal Fluid Scroll) -->
+          <div id="station-platforms-list" class="flex items-stretch gap-3 overflow-x-auto pb-2 pt-0.5 no-scrollbar scroll-smooth snap-x snap-mandatory">
             <!-- Rendered dynamically -->
           </div>
         </div>
@@ -987,16 +989,176 @@
     // 3. Level Crossing Gate Physics & AI Prediction Engine
     // --------------------------------------------------------------------------
     const CORRIDOR_TRAIN_CATALOG = [
-      { num: "12417", name: "Prayagraj Express", dir: "Up Line (Towards New Delhi)", speed: 75, platform: "PF 1", delay: 0 },
-      { num: "22436", name: "Vande Bharat Express", dir: "Down Line (Towards Varanasi)", speed: 90, platform: "PF 1", delay: 2 },
-      { num: "12559", name: "Shiv Ganga Express", dir: "Up Line (Towards New Delhi)", speed: 80, platform: "PF 1", delay: 0 },
-      { num: "14723", name: "Kalindi Express", dir: "Down Line (Towards Bhiwani)", speed: 65, platform: "PF 2", delay: 8 },
-      { num: "12801", name: "Purushottam Express", dir: "Up Line (Towards New Delhi)", speed: 75, platform: "PF 1", delay: 4 },
-      { num: "12451", name: "Shram Shakti Express", dir: "Down Line (Towards Kanpur)", speed: 80, platform: "PF 2", delay: 0 },
-      { num: "BOXN",  name: "Container Freight DFC", dir: "Up Line (Goods Bypass)", speed: 50, platform: "PF 3", delay: 0 },
-      { num: "12313", name: "Sealdah Rajdhani", dir: "Up Line (Towards New Delhi)", speed: 85, platform: "PF 1", delay: 0 },
-      { num: "12275", name: "Humsafar Express", dir: "Down Line (Towards Prayagraj)", speed: 75, platform: "PF 2", delay: 5 },
-      { num: "12423", name: "Dibrugarh Rajdhani", dir: "Down Line (Towards Guwahati)", speed: 85, platform: "PF 1", delay: 0 }
+      // MEMU & Passenger Commuter Trains
+      { 
+        num: "04129", 
+        name: "Fatehpur - Kanpur Central MEMU", 
+        type: "MEMU",
+        origin: "Fatehpur (FTP)", 
+        destination: "Kanpur Central (CNB)",
+        stops: ["FTP", "KWW", "BKO", "AUNG", "SSL", "GOY", "CNB"], 
+        dir: "Up Line (Towards Kanpur)", 
+        speed: 60, 
+        platform: "PF 3", 
+        delay: 0,
+        lastStop: "Kurasti Kalan",
+        nextStop: "Bindki Road"
+      },
+      { 
+        num: "04130", 
+        name: "Kanpur - Fatehpur MEMU Express", 
+        type: "MEMU",
+        origin: "Kanpur Central (CNB)", 
+        destination: "Fatehpur (FTP)",
+        stops: ["CNB", "GOY", "SSL", "AUNG", "BKO", "KWW", "FTP"], 
+        dir: "Down Line (Towards Fatehpur)", 
+        speed: 60, 
+        platform: "PF 2", 
+        delay: 4,
+        lastStop: "Aung",
+        nextStop: "Fatehpur"
+      },
+      { 
+        num: "64591", 
+        name: "Prayagraj - Kanpur Central MEMU", 
+        type: "MEMU",
+        origin: "Prayagraj Jn (PRYJ)", 
+        destination: "Kanpur Central (CNB)",
+        stops: ["PRYJ", "SFG", "MRE", "SRO", "FTP", "BKO", "CNB"], 
+        dir: "Up Line (Towards Kanpur)", 
+        speed: 55, 
+        platform: "PF 1", 
+        delay: 6,
+        lastStop: "Sirathu",
+        nextStop: "Fatehpur"
+      },
+      { 
+        num: "64592", 
+        name: "Kanpur Central - Prayagraj MEMU", 
+        type: "MEMU",
+        origin: "Kanpur Central (CNB)", 
+        destination: "Prayagraj Jn (PRYJ)",
+        stops: ["CNB", "BKO", "FTP", "SRO", "MRE", "SFG", "PRYJ"], 
+        dir: "Down Line (Towards Prayagraj)", 
+        speed: 55, 
+        platform: "PF 2", 
+        delay: 1,
+        lastStop: "Bindki Road",
+        nextStop: "Fatehpur"
+      },
+      // Superfast, Mail & Express Services
+      { 
+        num: "12417", 
+        name: "Prayagraj Express", 
+        type: "Superfast",
+        origin: "Prayagraj Jn (PRYJ)", 
+        destination: "New Delhi (NDLS)",
+        stops: ["PRYJ", "FTP", "CNB", "ALJN", "GZB", "NDLS"], 
+        dir: "Up Line (Towards New Delhi)", 
+        speed: 75, 
+        platform: "PF 1", 
+        delay: 0,
+        lastStop: "Prayagraj Jn",
+        nextStop: "Kanpur Central"
+      },
+      { 
+        num: "22436", 
+        name: "Vande Bharat Express", 
+        type: "Vande Bharat",
+        origin: "New Delhi (NDLS)", 
+        destination: "Varanasi Jn (BSB)",
+        stops: ["NDLS", "CNB", "PRYJ", "BSB"], 
+        dir: "Down Line (Towards Varanasi)", 
+        speed: 90, 
+        platform: "PF 1", 
+        delay: 2,
+        lastStop: "Kanpur Central",
+        nextStop: "Prayagraj Jn"
+      },
+      { 
+        num: "12559", 
+        name: "Shiv Ganga Express", 
+        type: "Superfast",
+        origin: "Banaras (BSBS)", 
+        destination: "New Delhi (NDLS)",
+        stops: ["BSBS", "PRYJ", "CNB", "NDLS"], 
+        dir: "Up Line (Towards New Delhi)", 
+        speed: 80, 
+        platform: "PF 1", 
+        delay: 0,
+        lastStop: "Prayagraj Jn",
+        nextStop: "Kanpur Central"
+      },
+      { 
+        num: "14723", 
+        name: "Kalindi Express", 
+        type: "Express",
+        origin: "Prayagraj Jn (PRYJ)", 
+        destination: "Bhiwani Jn (BNW)",
+        stops: ["PRYJ", "FTP", "CNB", "FBD", "TDL", "ALJN", "BNW"], 
+        dir: "Down Line (Towards Bhiwani)", 
+        speed: 65, 
+        platform: "PF 2", 
+        delay: 8,
+        lastStop: "Sirathu",
+        nextStop: "Fatehpur"
+      },
+      { 
+        num: "12801", 
+        name: "Purushottam Express", 
+        type: "Superfast",
+        origin: "Puri (PURI)", 
+        destination: "New Delhi (NDLS)",
+        stops: ["PURI", "DDU", "PRYJ", "FTP", "CNB", "NDLS"], 
+        dir: "Up Line (Towards New Delhi)", 
+        speed: 75, 
+        platform: "PF 1", 
+        delay: 4,
+        lastStop: "Prayagraj Jn",
+        nextStop: "Fatehpur"
+      },
+      { 
+        num: "12451", 
+        name: "Shram Shakti Express", 
+        type: "Superfast",
+        origin: "Kanpur Central (CNB)", 
+        destination: "New Delhi (NDLS)",
+        stops: ["CNB", "NDLS"], 
+        dir: "Down Line (Towards Kanpur)", 
+        speed: 80, 
+        platform: "PF 2", 
+        delay: 0,
+        lastStop: "Etawah",
+        nextStop: "Kanpur Central"
+      },
+      { 
+        num: "12313", 
+        name: "Sealdah Rajdhani", 
+        type: "Rajdhani",
+        origin: "Sealdah (SDAH)", 
+        destination: "New Delhi (NDLS)",
+        stops: ["SDAH", "DDU", "CNB", "NDLS"], 
+        dir: "Up Line (Towards New Delhi)", 
+        speed: 85, 
+        platform: "PF 1", 
+        delay: 0,
+        lastStop: "Pt. Deen Dayal Upadhyaya",
+        nextStop: "Kanpur Central"
+      },
+      { 
+        num: "12423", 
+        name: "Dibrugarh Rajdhani", 
+        type: "Rajdhani",
+        origin: "New Delhi (NDLS)", 
+        destination: "Dibrugarh (DBRG)",
+        stops: ["NDLS", "CNB", "PRYJ", "DDU", "DBRG"], 
+        dir: "Down Line (Towards Guwahati)", 
+        speed: 85, 
+        platform: "PF 1", 
+        delay: 0,
+        lastStop: "Kanpur Central",
+        nextStop: "Prayagraj Jn"
+      }
     ];
 
     function getLiveCorridorTrains(stationCode) {
@@ -1004,29 +1166,37 @@
       const currentMinute = now.getHours() * 60 + now.getMinutes();
 
       let stationSeed = 0;
-      for (let i = 0; i < (stationCode || "FTP").length; i++) {
-        stationSeed += (stationCode || "FTP").charCodeAt(i);
+      const sCode = (stationCode || "FTP").toUpperCase();
+      for (let i = 0; i < sCode.length; i++) {
+        stationSeed += sCode.charCodeAt(i);
       }
 
       const trains = [];
-      const baseInterval = 20; // train passing every ~20 mins on trunk mainline
+      const baseInterval = 18; // Train passing every ~18 mins on trunk mainline
 
-      for (let i = -1; i <= 5; i++) {
+      for (let i = -1; i <= 6; i++) {
         const trainIdx = Math.abs((Math.floor(currentMinute / baseInterval) + i + stationSeed) % CORRIDOR_TRAIN_CATALOG.length);
         const catalogTrain = CORRIDOR_TRAIN_CATALOG[trainIdx];
 
         const baseOffset = (currentMinute % baseInterval);
-        const etaMinutes = (i * baseInterval) - baseOffset + (stationSeed % 5);
+        const etaMinutes = (i * baseInterval) - baseOffset + (stationSeed % 4);
 
         const scheduledTime = new Date(now.getTime() + etaMinutes * 60000);
         const hh = String(scheduledTime.getHours()).padStart(2, '0');
         const mm = String(scheduledTime.getMinutes()).padStart(2, '0');
 
+        // Check if train has a scheduled commercial halt at this station
+        const hasHaltAtStation = Array.isArray(catalogTrain.stops) 
+          ? catalogTrain.stops.includes(sCode) 
+          : true;
+
         trains.push({
           ...catalogTrain,
           etaMinutes: etaMinutes + catalogTrain.delay,
           scheduled: `${hh}:${mm}`,
-          status: catalogTrain.delay > 0 ? `+${catalogTrain.delay}m Late` : "On Time"
+          status: catalogTrain.delay > 0 ? `+${catalogTrain.delay}m Late` : "On Time",
+          hasHaltAtStation,
+          haltBadge: hasHaltAtStation ? "Scheduled Halt" : "Through Run (Pass)"
         });
       }
 
@@ -1810,24 +1980,60 @@
         }
       }
 
-      // Render Station Platform Board
+      // Render Station Platform Board (Horizontal Scroll with Rich Route & Stop Details)
       const platformsList = document.getElementById('station-platforms-list');
       const platformTrains = getStationPlatformBoard(nearest.code);
 
       platformsList.innerHTML = platformTrains.map(t => {
         const isLate = t.status.toLowerCase().includes('late');
+        const isMemu = t.type === 'MEMU';
+        const typeBadgeCls = isMemu 
+          ? 'bg-purple-950/70 border border-purple-700/60 text-purple-300' 
+          : 'bg-blue-950/70 border border-blue-700/60 text-blue-300';
+        
+        const haltBadgeCls = t.hasHaltAtStation
+          ? 'bg-emerald-950/70 border border-emerald-700/60 text-emerald-300'
+          : 'bg-slate-800/80 border border-slate-700/60 text-slate-400';
+
         return `
-          <div class="py-2.5 px-3.5 rounded-[14px] liquid-subcard flex items-center justify-between text-xs transition">
-            <div class="min-w-0 flex-1 pr-3">
-              <div class="flex items-center gap-2">
-                <span class="text-[11px] font-bold text-slate-300">${t.platform}</span>
-                <span class="text-slate-400 text-[10px]">•</span>
-                <span class="font-bold text-white truncate text-xs drop-shadow-sm">${t.num} ${t.name}</span>
+          <div class="snap-start shrink-0 w-[270px] p-3.5 rounded-[18px] liquid-subcard flex flex-col justify-between border border-white/10 hover:border-white/20 transition-all shadow-md space-y-2.5">
+            <!-- Header: Platform, Type, and Time/Status -->
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="px-2 py-0.5 rounded-[8px] bg-slate-800/90 text-white font-bold text-[10px] tracking-wide border border-white/10">${t.platform}</span>
+                <span class="px-2 py-0.5 rounded-[8px] text-[10px] font-semibold ${typeBadgeCls}">${t.type || 'Express'}</span>
               </div>
-              <div class="text-[11px] text-slate-300 mt-1">${t.dir} • Scheduled: ${t.scheduled}</div>
+              <div class="text-right shrink-0">
+                <div class="text-xs font-mono font-bold text-white">${t.scheduled}</div>
+                <div class="text-[10px] font-semibold ${isLate ? 'text-amber-400' : 'text-emerald-400'} mt-0.5">${t.status}</div>
+              </div>
             </div>
-            <div class="text-[11px] font-bold shrink-0 ${isLate ? 'text-amber-300' : 'text-emerald-300'} drop-shadow-sm">
-              ${t.status}
+
+            <!-- Train Identity -->
+            <div>
+              <div class="text-xs font-bold text-white tracking-tight line-clamp-1">${t.num} ${escapeHtml(t.name)}</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${t.dir}</div>
+            </div>
+
+            <!-- Route Info: Origin -> Destination -->
+            <div class="pt-2 border-t border-white/10 space-y-1 text-[10px]">
+              <div class="flex items-center justify-between text-slate-300">
+                <span class="text-slate-400">Route:</span>
+                <span class="font-medium text-white truncate max-w-[190px] text-right">${escapeHtml(t.origin)} → ${escapeHtml(t.destination)}</span>
+              </div>
+              <!-- Last Stop -> Next Stop -->
+              <div class="flex items-center justify-between text-slate-300">
+                <span class="text-slate-400">Prev / Next:</span>
+                <span class="text-slate-300 truncate max-w-[190px] text-right"><span class="text-slate-400">${escapeHtml(t.lastStop || 'Prior')}</span> → <strong class="text-white">${escapeHtml(t.nextStop || 'Ahead')}</strong></span>
+              </div>
+            </div>
+
+            <!-- Nearest Station Halt Verification Badge -->
+            <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+              <span class="text-slate-400 truncate max-w-[130px]">Halt at ${nearest.code}:</span>
+              <span class="px-2 py-0.5 rounded-[7px] text-[9px] font-bold ${haltBadgeCls}">
+                ${t.hasHaltAtStation ? '✓ Stops Here' : '⊘ Skips (Pass)'}
+              </span>
             </div>
           </div>
         `;
@@ -2013,27 +2219,66 @@
           </div>
         </div>
 
-        <!-- Station Platform Board for Mobile -->
+        <!-- Station Platform Board for Mobile (Horizontal Fluid Scroll) -->
         <div class="space-y-3 pt-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-200 tracking-wide">Platform Schedule</span>
-            <span class="text-[11px] text-slate-300 font-bold">${nearest.code}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-slate-200 tracking-wide">Platform Schedule</span>
+              <span class="text-[11px] text-slate-300 font-bold">${nearest.code}</span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-medium">Swipe cards →</span>
           </div>
-          <div class="space-y-2 max-h-44 overflow-y-auto pr-1">
+          <div id="mobile-platforms-list" class="flex items-stretch gap-3 overflow-x-auto pb-2 pt-0.5 no-scrollbar scroll-smooth snap-x snap-mandatory">
             ${platformTrains.map(t => {
               const isLate = t.status.toLowerCase().includes('late');
+              const isMemu = t.type === 'MEMU';
+              const typeBadgeCls = isMemu 
+                ? 'bg-purple-950/70 border border-purple-700/60 text-purple-300' 
+                : 'bg-blue-950/70 border border-blue-700/60 text-blue-300';
+              
+              const haltBadgeCls = t.hasHaltAtStation
+                ? 'bg-emerald-950/70 border border-emerald-700/60 text-emerald-300'
+                : 'bg-slate-800/80 border border-slate-700/60 text-slate-400';
+
               return `
-                <div class="py-2.5 px-3.5 rounded-[14px] liquid-subcard flex items-center justify-between text-xs">
-                  <div class="min-w-0 flex-1 pr-3">
-                    <div class="flex items-center gap-2">
-                      <span class="text-[11px] font-bold text-slate-300">${t.platform}</span>
-                      <span class="text-slate-400 text-[10px]">•</span>
-                      <span class="font-bold text-white truncate text-xs drop-shadow-sm">${t.num} ${t.name}</span>
+                <div class="snap-start shrink-0 w-[260px] p-3.5 rounded-[18px] liquid-subcard flex flex-col justify-between border border-white/10 shadow-md space-y-2.5">
+                  <!-- Header: Platform, Type, and Time/Status -->
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="px-2 py-0.5 rounded-[8px] bg-slate-800/90 text-white font-bold text-[10px] tracking-wide border border-white/10">${t.platform}</span>
+                      <span class="px-2 py-0.5 rounded-[8px] text-[10px] font-semibold ${typeBadgeCls}">${t.type || 'Express'}</span>
                     </div>
-                    <div class="text-[11px] text-slate-300 mt-1">${t.dir} • ${t.scheduled}</div>
+                    <div class="text-right shrink-0">
+                      <div class="text-xs font-mono font-bold text-white">${t.scheduled}</div>
+                      <div class="text-[10px] font-semibold ${isLate ? 'text-amber-400' : 'text-emerald-400'} mt-0.5">${t.status}</div>
+                    </div>
                   </div>
-                  <div class="text-[11px] font-bold shrink-0 ${isLate ? 'text-amber-300' : 'text-emerald-300'} drop-shadow-sm">
-                    ${t.status}
+
+                  <!-- Train Identity -->
+                  <div>
+                    <div class="text-xs font-bold text-white tracking-tight line-clamp-1">${t.num} ${escapeHtml(t.name)}</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">${t.dir}</div>
+                  </div>
+
+                  <!-- Route Info: Origin -> Destination -->
+                  <div class="pt-2 border-t border-white/10 space-y-1 text-[10px]">
+                    <div class="flex items-center justify-between text-slate-300">
+                      <span class="text-slate-400">Route:</span>
+                      <span class="font-medium text-white truncate max-w-[180px] text-right">${escapeHtml(t.origin)} → ${escapeHtml(t.destination)}</span>
+                    </div>
+                    <!-- Last Stop -> Next Stop -->
+                    <div class="flex items-center justify-between text-slate-300">
+                      <span class="text-slate-400">Prev / Next:</span>
+                      <span class="text-slate-300 truncate max-w-[180px] text-right"><span class="text-slate-400">${escapeHtml(t.lastStop || 'Prior')}</span> → <strong class="text-white">${escapeHtml(t.nextStop || 'Ahead')}</strong></span>
+                    </div>
+                  </div>
+
+                  <!-- Nearest Station Halt Verification Badge -->
+                  <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                    <span class="text-slate-400 truncate max-w-[130px]">Halt at ${nearest.code}:</span>
+                    <span class="px-2 py-0.5 rounded-[7px] text-[9px] font-bold ${haltBadgeCls}">
+                      ${t.hasHaltAtStation ? '✓ Stops Here' : '⊘ Skips (Pass)'}
+                    </span>
                   </div>
                 </div>
               `;
