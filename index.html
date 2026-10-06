@@ -248,15 +248,6 @@
           <kbd class="hidden md:inline-block px-1 py-0.2 text-[9px] bg-slate-900/80 border border-slate-700/60 rounded text-slate-400 font-mono">⌘K</kbd>
         </button>
 
-        <!-- Scan Tracks Button (Desktop & Tablet) -->
-        <button id="scan-tracks-btn" type="button" title="Scan OpenStreetMap track nodes" class="hidden md:flex text-xs font-medium px-3 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 items-center gap-1.5 shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <span>Scan Tracks</span>
-        </button>
-
         <!-- Settings / BYOK Button -->
         <button id="settings-btn" type="button" title="Map & API Integrations (BYOK)" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -276,14 +267,30 @@
       </div>
     </header>
 
-    <!-- Minimal Floating Zoom Controls -->
+    <!-- Minimal Floating Zoom Controls & Dark Map Toggle -->
     <div class="absolute top-20 right-4 md:right-6 z-[990] flex flex-col gap-1.5">
       <div class="floating-glass rounded-[14px] overflow-hidden flex flex-col">
         <button id="custom-zoom-in" type="button" title="Zoom In" class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/50 active:bg-slate-700/50 transition border-b border-slate-700/40 text-sm font-semibold">
           +
         </button>
-        <button id="custom-zoom-out" type="button" title="Zoom Out" class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/50 active:bg-slate-700/50 transition text-sm font-semibold">
+        <button id="custom-zoom-out" type="button" title="Zoom Out" class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/50 active:bg-slate-700/50 transition border-b border-slate-700/40 text-sm font-semibold">
           −
+        </button>
+        <button id="toggle-map-theme" type="button" title="Toggle Map Dark/Light Mode" class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/50 active:bg-slate-700/50 transition">
+          <svg id="map-theme-moon-icon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg id="map-theme-sun-icon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
         </button>
       </div>
     </div>
@@ -656,9 +663,15 @@
         <div class="text-xs text-slate-400 p-4 text-center">Type to search railway crossings and stations...</div>
       </div>
 
-      <!-- Search Footer -->
+      <!-- Search Footer with Scan Tracks utility -->
       <div class="px-5 py-3 bg-slate-950/70 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
-        <span id="search-count-label">Quick search across all crossings</span>
+        <button id="scan-tracks-btn" type="button" title="Scan OpenStreetMap for railway crossing nodes in current view" class="flex items-center gap-1.5 px-2.5 py-1 rounded-[8px] bg-slate-800/80 hover:bg-slate-700/80 hover:text-white text-slate-300 border border-slate-700/60 transition active:scale-95 text-[11px] font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Scan Tracks in View</span>
+        </button>
         <span class="flex items-center gap-2">
           <span>Press <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono text-[10px]">ESC</kbd> to close</span>
         </span>
@@ -685,8 +698,11 @@
           </div>
           <p class="text-[11px] text-slate-400 mt-0.5">Basemaps, real-time train tracking, and free API keys</p>
         </div>
-        <button id="settings-close-x" type="button" class="text-slate-400 hover:text-white text-xs w-7 h-7 flex items-center justify-center rounded-[8px] hover:bg-slate-800/60 transition" title="Close Settings">
-          ✕
+        <button id="settings-close-x" type="button" class="text-slate-400 hover:text-white w-7 h-7 flex items-center justify-center rounded-[8px] hover:bg-slate-800/80 transition p-0 shrink-0" title="Close Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
 
@@ -711,12 +727,12 @@
           <div>
             <div class="mb-2">
               <h4 class="text-[10px] font-bold text-slate-300 uppercase tracking-wider">Quick Setup Profiles</h4>
-              <p class="text-[11px] text-slate-400 mt-0.5">Select a profile for instant setup without manual key entry.</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Select a profile for instant setup without manual key entry (swipe horizontally).</p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div class="flex items-stretch gap-2.5 overflow-x-auto no-scrollbar pb-1.5 pt-0.5 snap-x">
               <!-- Preset 1 -->
-              <button type="button" id="preset-zero" class="preset-btn p-3 rounded-[14px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[90px]">
+              <button type="button" id="preset-zero" class="preset-btn shrink-0 w-[180px] snap-start p-3 rounded-[14px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[92px]">
                 <div>
                   <div class="text-[11px] font-bold text-white group-hover:text-blue-300">Zero Setup</div>
                   <div class="text-[10px] text-slate-400 mt-0.5">OSM + Corridor</div>
@@ -728,7 +744,7 @@
               </button>
 
               <!-- Preset 2 -->
-              <button type="button" id="preset-commuter" class="preset-btn p-3 rounded-[14px] bg-blue-950/30 hover:bg-blue-900/40 border border-blue-700/60 text-left transition active:scale-95 group relative flex flex-col justify-between min-h-[90px]">
+              <button type="button" id="preset-commuter" class="preset-btn shrink-0 w-[180px] snap-start p-3 rounded-[14px] bg-blue-950/30 hover:bg-blue-900/40 border border-blue-700/60 text-left transition active:scale-95 group relative flex flex-col justify-between min-h-[92px]">
                 <div class="absolute -top-1.5 right-2 px-1.5 py-0.2 rounded-full bg-blue-600 text-[8px] font-extrabold text-white shadow-sm">
                   Recommended
                 </div>
@@ -743,7 +759,7 @@
               </button>
 
               <!-- Preset 3 -->
-              <button type="button" id="preset-google" class="preset-btn p-3 rounded-[14px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[90px]">
+              <button type="button" id="preset-google" class="preset-btn shrink-0 w-[180px] snap-start p-3 rounded-[14px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[92px]">
                 <div>
                   <div class="text-[11px] font-bold text-white group-hover:text-blue-300">Power User</div>
                   <div class="text-[10px] text-slate-400 mt-0.5">Google + RapidAPI</div>
@@ -1697,15 +1713,40 @@
     }
 
     // --------------------------------------------------------------------------
-    // 4. Map Setup: Dynamic BYOK Tile Layer (OpenStreetMap / Google Maps / Mappls)
+    // 4. Map Setup: Dynamic BYOK Tile Layer (OpenStreetMap Dark/Light / Google Maps / Mappls)
     // --------------------------------------------------------------------------
     const map = L.map('map', { zoomControl: false }).setView([25.9185, 80.7982], 13);
     let currentMapTileLayer = null;
+
+    function isMapDarkMode() {
+      // Default to dark mode for sleek modern UI if not explicitly set
+      const savedTheme = localStorage.getItem('map_dark_mode');
+      return savedTheme === null ? true : savedTheme === 'true';
+    }
+
+    function updateThemeToggleUI() {
+      const isDark = isMapDarkMode();
+      const moon = document.getElementById('map-theme-moon-icon');
+      const sun = document.getElementById('map-theme-sun-icon');
+      const btn = document.getElementById('toggle-map-theme');
+      if (moon && sun) {
+        if (isDark) {
+          moon.classList.add('hidden');
+          sun.classList.remove('hidden');
+          if (btn) btn.title = "Switch to Light Map";
+        } else {
+          moon.classList.remove('hidden');
+          sun.classList.add('hidden');
+          if (btn) btn.title = "Switch to Dark Map";
+        }
+      }
+    }
 
     function applyConfiguredMapProvider() {
       const mapProvider = localStorage.getItem('byok_map_provider') || 'osm';
       const gmapsKey = localStorage.getItem('google_maps_key') || '';
       const mapplsKey = localStorage.getItem('mappls_key') || '';
+      const isDark = isMapDarkMode();
 
       if (currentMapTileLayer) {
         map.removeLayer(currentMapTileLayer);
@@ -1727,19 +1768,37 @@
           attribution: '&copy; MapMyIndia / Mappls'
         }).addTo(map);
       } else {
-        // Default OpenStreetMap (Clean, 100% Free)
-        currentMapTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+        // OpenStreetMap: Switch between CartoDB Dark Matter and standard OSM
+        if (isDark) {
+          currentMapTileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 20,
+            subdomains: 'abcd',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          }).addTo(map);
+        } else {
+          currentMapTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(map);
+        }
       }
+      updateThemeToggleUI();
     }
 
     applyConfiguredMapProvider();
 
-    // Custom iOS Zoom Buttons
+    // Custom iOS Zoom Buttons & Dark Theme Toggle
     document.getElementById('custom-zoom-in').addEventListener('click', () => map.zoomIn());
     document.getElementById('custom-zoom-out').addEventListener('click', () => map.zoomOut());
+    const toggleMapThemeBtn = document.getElementById('toggle-map-theme');
+    if (toggleMapThemeBtn) {
+      toggleMapThemeBtn.addEventListener('click', () => {
+        const nextDark = !isMapDarkMode();
+        localStorage.setItem('map_dark_mode', String(nextDark));
+        applyConfiguredMapProvider();
+        showToast(nextDark ? "Map theme: Dark Mode" : "Map theme: Light Mode");
+      });
+    }
 
     const markerRegistry = new Map();
     let currentPendingLocation = null;
@@ -3424,69 +3483,71 @@
     // --------------------------------------------------------------------------
     const scannedMarkersGroup = L.layerGroup().addTo(map);
 
-    document.getElementById('scan-tracks-btn').addEventListener('click', async () => {
-      const scanBtn = document.getElementById('scan-tracks-btn');
-      scanBtn.disabled = true;
-      scanBtn.innerHTML = '<span>Scanning...</span>';
-      showToast("Scanning tracks in current view...");
+    const scanBtn = document.getElementById('scan-tracks-btn');
+    if (scanBtn) {
+      scanBtn.addEventListener('click', async () => {
+        scanBtn.disabled = true;
+        scanBtn.innerHTML = '<span>Scanning tracks...</span>';
+        showToast("Scanning tracks in current view...");
 
-      const bounds = map.getBounds();
-      const s = bounds.getSouth();
-      const w = bounds.getWest();
-      const n = bounds.getNorth();
-      const e = bounds.getEast();
+        const bounds = map.getBounds();
+        const s = bounds.getSouth();
+        const w = bounds.getWest();
+        const n = bounds.getNorth();
+        const e = bounds.getEast();
 
-      const query = `[out:json][timeout:15];node["railway"="level_crossing"](${s},${w},${n},${e});out 25;`;
-      const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+        const query = `[out:json][timeout:15];node["railway"="level_crossing"](${s},${w},${n},${e});out 25;`;
+        const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
 
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Overpass busy");
-        const json = await res.json();
-        const nodes = json.elements || [];
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error("Overpass busy");
+          const json = await res.json();
+          const nodes = json.elements || [];
 
-        scannedMarkersGroup.clearLayers();
+          scannedMarkersGroup.clearLayers();
 
-        if (nodes.length === 0) {
-          showToast("No additional physical crossings found here.");
-        } else {
-          showToast(`Found ${nodes.length} physical railway crossing points!`);
-          nodes.forEach(node => {
-            const scanIcon = L.divIcon({
-              className: 'custom-osm-icon',
-              html: `
-                <div class="w-6 h-6 rounded-full border-2 border-dashed border-amber-400 bg-amber-500/20 flex items-center justify-center shadow-md cursor-pointer hover:scale-125 transition text-amber-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </div>
-              `,
-              iconSize: [24, 24],
-              iconAnchor: [12, 12]
+          if (nodes.length === 0) {
+            showToast("No additional physical crossings found here.");
+          } else {
+            showToast(`Found ${nodes.length} physical railway crossing points!`);
+            nodes.forEach(node => {
+              const scanIcon = L.divIcon({
+                className: 'custom-osm-icon',
+                html: `
+                  <div class="w-6 h-6 rounded-full border-2 border-dashed border-amber-400 bg-amber-500/20 flex items-center justify-center shadow-md cursor-pointer hover:scale-125 transition text-amber-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  </div>
+                `,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+              });
+
+              const marker = L.marker([node.lat, node.lon], { icon: scanIcon });
+              const nearest = getNearestStation(node.lat, node.lon);
+              const osmName = node.tags?.name || node.tags?.ref || `Crossing near ${nearest.name}`;
+
+              marker.on('click', () => {
+                openModal(node.lat, node.lon, osmName);
+              });
+
+              scannedMarkersGroup.addLayer(marker);
             });
-
-            const marker = L.marker([node.lat, node.lon], { icon: scanIcon });
-            const nearest = getNearestStation(node.lat, node.lon);
-            const osmName = node.tags?.name || node.tags?.ref || `Crossing near ${nearest.name}`;
-
-            marker.on('click', () => {
-              openModal(node.lat, node.lon, osmName);
-            });
-
-            scannedMarkersGroup.addLayer(marker);
-          });
+          }
+        } catch (err) {
+          showToast("Track scan timed out. Try zooming in.", true);
+        } finally {
+          scanBtn.disabled = false;
+          scanBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Scan Tracks in View</span>
+          `;
         }
-      } catch (err) {
-        showToast("Track scan timed out. Try zooming in.", true);
-      } finally {
-        scanBtn.disabled = false;
-        scanBtn.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <span>Scan Tracks</span>
-        `;
-      }
-    });
+      });
+    }
 
     function showToast(message, isError = false) {
       const toast = document.getElementById('toast');
@@ -3724,29 +3785,44 @@
       sheet.addEventListener('touchend', onTouchEnd, { passive: true });
       sheet.addEventListener('touchcancel', onTouchEnd, { passive: true });
 
-      // Enable swipe-down dismiss on settings bottom sheet as well
+      // Enable smooth swipe-down dismiss on settings bottom sheet without scroll interference
       const settingsSheet = document.getElementById('settings-card');
       const settingsHandle = document.getElementById('settings-drag-handle');
+      const settingsFormEl = document.getElementById('settings-form');
       if (settingsSheet) {
         let setStartY = 0, setCurrY = 0, setDragging = false, setHandleTouch = false;
+        
         settingsSheet.addEventListener('touchstart', (e) => {
           if (e.touches.length !== 1) return;
+          // Only enable drag-down gesture on mobile
+          if (window.innerWidth >= 640) return;
+          
           setStartY = e.touches[0].clientY;
           setCurrY = setStartY;
-          setHandleTouch = settingsHandle ? settingsHandle.contains(e.target) : false;
-          if (setHandleTouch || settingsSheet.scrollTop <= 2) {
+          setHandleTouch = settingsHandle ? (settingsHandle === e.target || settingsHandle.contains(e.target)) : false;
+          
+          // Dragging is ONLY initiated from the top drag handle or if form is strictly at top
+          const formScrollTop = settingsFormEl ? settingsFormEl.scrollTop : 0;
+          if (setHandleTouch || formScrollTop <= 0) {
             setDragging = true;
-            settingsSheet.style.transition = 'none';
           }
-        }, { passive: false });
+        }, { passive: true });
 
         settingsSheet.addEventListener('touchmove', (e) => {
           if (!setDragging || e.touches.length !== 1) return;
           const deltaY = e.touches[0].clientY - setStartY;
-          if (deltaY > 0) {
-            if (settingsSheet.scrollTop <= 0) e.preventDefault();
+          const formScrollTop = settingsFormEl ? settingsFormEl.scrollTop : 0;
+
+          // Only handle downwards dismissal when at top of form or touching handle
+          if (deltaY > 5 && (setHandleTouch || formScrollTop <= 0)) {
+            if (e.cancelable) e.preventDefault();
+            settingsSheet.style.transition = 'none';
             setCurrY = e.touches[0].clientY;
             settingsSheet.style.transform = `translateY(${deltaY}px)`;
+          } else if (deltaY < 0 && !setHandleTouch) {
+            // Natural upward scrolling inside form: abort sheet drag
+            setDragging = false;
+            settingsSheet.style.transform = '';
           }
         }, { passive: false });
 
@@ -3758,8 +3834,14 @@
           if (deltaY > 100) {
             closeSettingsModal();
           } else {
-            settingsSheet.style.transform = 'translateY(0)';
+            settingsSheet.style.transform = '';
           }
+        }, { passive: true });
+
+        settingsSheet.addEventListener('touchcancel', () => {
+          setDragging = false;
+          settingsSheet.style.transition = 'transform 0.35s cubic-bezier(0.32, 0.72, 0, 1)';
+          settingsSheet.style.transform = '';
         }, { passive: true });
       }
     })();
