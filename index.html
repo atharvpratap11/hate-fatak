@@ -257,17 +257,6 @@
           <span>Scan Tracks</span>
         </button>
 
-        <!-- Locate Button -->
-        <button id="locate-btn" type="button" title="Locate Current Position" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="7"></circle>
-            <line x1="12" y1="1" x2="12" y2="5"></line>
-            <line x1="12" y1="19" x2="12" y2="23"></line>
-            <line x1="1" y1="12" x2="5" y2="12"></line>
-            <line x1="19" y1="12" x2="23" y2="12"></line>
-          </svg>
-        </button>
-
         <!-- Settings / BYOK Button -->
         <button id="settings-btn" type="button" title="Map & API Integrations (BYOK)" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -485,6 +474,19 @@
       <button id="mobile-nearby-toggle-btn" type="button" class="px-4 py-2.5 rounded-full floating-glass border border-white/20 text-xs font-bold text-white shadow-2xl flex items-center gap-2 active:scale-95 transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
         <span id="mobile-nearby-btn-text">Nearby Crossings</span>
+      </button>
+    </div>
+
+    <!-- Floating Location GPS Button (Bottom Right on PC and Mobile) -->
+    <div class="fixed bottom-6 right-4 sm:right-6 z-[1900]">
+      <button id="locate-btn" type="button" title="Center on My Location" class="w-12 h-12 sm:w-11 sm:h-11 rounded-full floating-glass border border-white/25 flex items-center justify-center text-blue-400 hover:text-blue-300 hover:bg-slate-800/80 active:scale-90 transition-all shadow-2xl group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="7"></circle>
+          <line x1="12" y1="1" x2="12" y2="5"></line>
+          <line x1="12" y1="19" x2="12" y2="23"></line>
+          <line x1="1" y1="12" x2="5" y2="12"></line>
+          <line x1="19" y1="12" x2="23" y2="12"></line>
+        </svg>
       </button>
     </div>
 
