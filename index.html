@@ -237,7 +237,7 @@
       </div>
 
       <!-- Actions -->
-      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <div class="flex items-center gap-1.5 shrink-0">
         <!-- Search Button -->
         <button id="search-btn" type="button" title="Search Crossings & Stations (⌘K or /)" class="w-8 h-8 sm:w-auto text-xs font-medium px-0 sm:px-3 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 flex items-center justify-center gap-1.5 shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -249,7 +249,7 @@
         </button>
 
         <!-- Scan Tracks Button (Desktop & Tablet) -->
-        <button id="scan-tracks-btn" type="button" title="Scan OpenStreetMap track nodes" class="hidden md:flex text-xs font-medium px-3.5 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 items-center gap-1.5">
+        <button id="scan-tracks-btn" type="button" title="Scan OpenStreetMap track nodes" class="hidden md:flex text-xs font-medium px-3 py-1.5 bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/50 rounded-[10px] transition active:scale-95 items-center gap-1.5 shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -257,17 +257,8 @@
           <span>Scan Tracks</span>
         </button>
 
-        <!-- Add Crossing Button (+ on mobile, + Add Crossing on larger screens) -->
-        <button id="add-crossing-btn" type="button" title="Add Crossing" class="w-8 h-8 sm:w-auto text-xs font-bold sm:font-semibold px-0 sm:px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-[10px] transition active:scale-95 flex items-center justify-center gap-1.5 shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          <span class="hidden sm:inline text-xs">Add Crossing</span>
-        </button>
-
         <!-- Locate Button -->
-        <button id="locate-btn" type="button" title="Locate Current Position" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white">
+        <button id="locate-btn" type="button" title="Locate Current Position" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="7"></circle>
             <line x1="12" y1="1" x2="12" y2="5"></line>
@@ -278,11 +269,20 @@
         </button>
 
         <!-- Settings / BYOK Button -->
-        <button id="settings-btn" type="button" title="Map & API Integrations (BYOK)" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white">
+        <button id="settings-btn" type="button" title="Map & API Integrations (BYOK)" class="w-8 h-8 flex items-center justify-center bg-slate-800/60 hover:bg-slate-700/80 active:scale-95 transition rounded-[10px] border border-slate-700/50 text-slate-300 hover:text-white shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
+        </button>
+
+        <!-- Add Crossing Button (Rightmost: + on mobile, + Add Crossing on larger screens) -->
+        <button id="add-crossing-btn" type="button" title="Add Crossing" class="w-8 h-8 sm:w-auto text-xs font-bold sm:font-semibold px-0 sm:px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-[10px] transition active:scale-95 flex items-center justify-center gap-1.5 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="hidden sm:inline text-xs">Add Crossing</span>
         </button>
       </div>
     </header>
@@ -665,82 +665,89 @@
   </div>
 
   <!-- Settings & BYOK Integration Modal (Redesigned with generous whitespace, tabs, and zero scrollbar) -->
-  <div id="settings-modal" class="fixed inset-0 z-[3500] bg-black/60 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="floating-glass rounded-t-[28px] sm:rounded-[24px] w-full max-w-2xl p-6 sm:p-8 shadow-2xl max-h-[92vh] flex flex-col transform transition-all no-scrollbar" id="settings-card">
+  <!-- Settings & BYOK Integration Bottom Sheet / Modal (Slide-up physics matching crossing detail sheet with toned-down font sizes) -->
+  <div id="settings-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[2990] hidden opacity-0 transition-opacity duration-300" onclick="closeSettingsModal()"></div>
+  <div id="settings-modal" class="fixed bottom-0 left-0 right-0 sm:inset-0 z-[3000] hidden sm:flex items-end sm:items-center justify-center p-0 sm:p-4 pointer-events-none">
+    <div id="settings-card" class="sheet-transition pointer-events-auto floating-glass rounded-t-[32px] sm:rounded-[24px] w-full max-w-xl p-5 sm:p-6 shadow-2xl max-h-[88vh] flex flex-col transform translate-y-full sm:translate-y-0 transition-transform no-scrollbar">
       
+      <!-- Mobile Drag Handle -->
+      <div id="settings-drag-handle" class="sm:hidden w-full flex flex-col items-center justify-center py-1 -mt-2 mb-2 cursor-grab active:cursor-grabbing">
+        <div class="w-10 h-1 bg-slate-500/60 rounded-full"></div>
+      </div>
+
       <!-- Modal Header -->
-      <div class="flex justify-between items-start pb-5 border-b border-slate-800/80">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800/80">
         <div>
-          <div class="flex items-center gap-2.5">
-            <h3 class="text-lg font-bold text-white tracking-tight">API & Map Settings</h3>
-            <span class="text-[11px] font-semibold text-blue-400 bg-blue-950/60 border border-blue-800/60 px-2 py-0.5 rounded-full">BYOK Config</span>
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">API & Map Settings</h3>
+            <span class="text-[10px] font-semibold text-blue-400 bg-blue-950/60 border border-blue-800/60 px-2 py-0.2 rounded-full">BYOK</span>
           </div>
-          <p class="text-xs text-slate-400 mt-1.5">Configure basemaps, real-time train tracking, and personal free-tier API keys</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Basemaps, real-time train tracking, and free API keys</p>
         </div>
-        <button id="settings-close-x" type="button" class="text-slate-400 hover:text-white text-sm w-8 h-8 flex items-center justify-center rounded-[10px] hover:bg-slate-800/60 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        <button id="settings-close-x" type="button" class="text-slate-400 hover:text-white text-xs w-7 h-7 flex items-center justify-center rounded-[8px] hover:bg-slate-800/60 transition" title="Close Settings">
+          ✕
         </button>
       </div>
 
-      <!-- Segmented Tab Navigation for Calm, Professional Spacing -->
-      <div class="flex items-center p-1 rounded-[14px] bg-slate-900/80 border border-slate-800/80 mt-5 mb-4">
-        <button type="button" class="settings-tab-btn flex-1 py-2 px-3 rounded-[10px] text-xs font-semibold transition text-white bg-blue-600/90 shadow-sm" data-tab="presets">
-          Recommended Presets
+      <!-- Segmented Tab Navigation -->
+      <div class="flex items-center p-0.5 rounded-[12px] bg-slate-900/80 border border-slate-800/80 mt-3 mb-3 shrink-0">
+        <button type="button" class="settings-tab-btn flex-1 py-1.5 px-2 rounded-[8px] text-[11px] font-semibold transition text-white bg-blue-600/90 shadow-sm" data-tab="presets">
+          Presets
         </button>
-        <button type="button" class="settings-tab-btn flex-1 py-2 px-3 rounded-[10px] text-xs font-semibold transition text-slate-400 hover:text-white" data-tab="maps">
-          Map Providers
+        <button type="button" class="settings-tab-btn flex-1 py-1.5 px-2 rounded-[8px] text-[11px] font-semibold transition text-slate-400 hover:text-white" data-tab="maps">
+          Map Source
         </button>
-        <button type="button" class="settings-tab-btn flex-1 py-2 px-3 rounded-[10px] text-xs font-semibold transition text-slate-400 hover:text-white" data-tab="trains">
-          Live Train GPS
+        <button type="button" class="settings-tab-btn flex-1 py-1.5 px-2 rounded-[8px] text-[11px] font-semibold transition text-slate-400 hover:text-white" data-tab="trains">
+          Live GPS
         </button>
       </div>
 
       <!-- Scrollable Form Body without visible scrollbar -->
-      <form id="settings-form" class="overflow-y-auto flex-1 no-scrollbar space-y-6 pt-2 pr-1">
+      <form id="settings-form" class="overflow-y-auto flex-1 no-scrollbar space-y-4 pt-1 pr-1">
         
         <!-- Tab 1: Presets & Quota Overview -->
-        <div id="tab-pane-presets" class="settings-tab-pane space-y-6">
+        <div id="tab-pane-presets" class="settings-tab-pane space-y-4">
           <div>
-            <div class="mb-3">
-              <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Quick Setup Profiles</h4>
-              <p class="text-xs text-slate-400 mt-1">Select a pre-tuned profile for instant setup without manual key entry.</p>
+            <div class="mb-2">
+              <h4 class="text-[10px] font-bold text-slate-300 uppercase tracking-wider">Quick Setup Profiles</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">Select a profile for instant setup without manual key entry.</p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <!-- Preset 1 -->
-              <button type="button" id="preset-zero" class="preset-btn p-4 rounded-[16px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[110px]">
+              <button type="button" id="preset-zero" class="preset-btn p-3 rounded-[14px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[90px]">
                 <div>
-                  <div class="text-xs font-bold text-white group-hover:text-blue-300">Zero Setup</div>
-                  <div class="text-[11px] text-slate-400 mt-1">OSM + Corridor</div>
+                  <div class="text-[11px] font-bold text-white group-hover:text-blue-300">Zero Setup</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">OSM + Corridor</div>
                 </div>
-                <div class="text-[10px] text-emerald-400 font-semibold mt-3 flex items-center gap-1.5">
+                <div class="text-[9px] text-emerald-400 font-semibold mt-2 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                   100% Free • 0 Keys
                 </div>
               </button>
 
               <!-- Preset 2 -->
-              <button type="button" id="preset-commuter" class="preset-btn p-4 rounded-[16px] bg-blue-950/30 hover:bg-blue-900/40 border border-blue-700/60 text-left transition active:scale-95 group relative flex flex-col justify-between min-h-[110px]">
-                <div class="absolute -top-2 right-3 px-2 py-0.5 rounded-full bg-blue-600 text-[9px] font-extrabold text-white shadow-sm">
+              <button type="button" id="preset-commuter" class="preset-btn p-3 rounded-[14px] bg-blue-950/30 hover:bg-blue-900/40 border border-blue-700/60 text-left transition active:scale-95 group relative flex flex-col justify-between min-h-[90px]">
+                <div class="absolute -top-1.5 right-2 px-1.5 py-0.2 rounded-full bg-blue-600 text-[8px] font-extrabold text-white shadow-sm">
                   Recommended
                 </div>
                 <div>
-                  <div class="text-xs font-bold text-blue-200">Commuter Pro</div>
-                  <div class="text-[11px] text-slate-300 mt-1">OSM + RapidAPI</div>
+                  <div class="text-[11px] font-bold text-blue-200">Commuter Pro</div>
+                  <div class="text-[10px] text-slate-300 mt-0.5">OSM + RapidAPI</div>
                 </div>
-                <div class="text-[10px] text-blue-300 font-semibold mt-3 flex items-center gap-1.5">
+                <div class="text-[9px] text-blue-300 font-semibold mt-2 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
                   ~16 Live GPS / Day
                 </div>
               </button>
 
               <!-- Preset 3 -->
-              <button type="button" id="preset-google" class="preset-btn p-4 rounded-[16px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[110px]">
+              <button type="button" id="preset-google" class="preset-btn p-3 rounded-[14px] bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 text-left transition active:scale-95 group flex flex-col justify-between min-h-[90px]">
                 <div>
-                  <div class="text-xs font-bold text-white group-hover:text-blue-300">Power User</div>
-                  <div class="text-[11px] text-slate-400 mt-1">Google + RapidAPI</div>
+                  <div class="text-[11px] font-bold text-white group-hover:text-blue-300">Power User</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Google + RapidAPI</div>
                 </div>
-                <div class="text-[10px] text-purple-400 font-semibold mt-3 flex items-center gap-1.5">
+                <div class="text-[9px] text-purple-400 font-semibold mt-2 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
                   $200 Mo Credit
                 </div>
@@ -749,142 +756,142 @@
           </div>
 
           <!-- Combination Quota & Recommendation Box -->
-          <div class="p-5 rounded-[18px] bg-slate-900/70 border border-slate-800/90 space-y-4">
+          <div class="p-3.5 rounded-[14px] bg-slate-900/70 border border-slate-800/90 space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Combination Quota & Recommendation</span>
-              <span id="advisor-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">Zero Setup</span>
+              <span class="text-[10px] font-bold text-slate-300 uppercase tracking-wider">Combination Quota</span>
+              <span id="advisor-badge" class="px-2 py-0.2 rounded text-[9px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">Zero Setup</span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div class="p-3.5 rounded-[12px] bg-slate-950/60 border border-slate-800/80">
-                <div class="text-[11px] text-slate-400">Daily Map Budget</div>
-                <div id="advisor-map-limit" class="font-bold text-white text-base mt-1">Unlimited</div>
-                <div id="advisor-map-sub" class="text-[10px] text-slate-500 mt-0.5">OpenStreetMap Fair Use</div>
+            <div class="grid grid-cols-2 gap-2 text-[11px]">
+              <div class="p-2.5 rounded-[10px] bg-slate-950/60 border border-slate-800/80">
+                <div class="text-[10px] text-slate-400">Map Budget</div>
+                <div id="advisor-map-limit" class="font-bold text-white text-xs mt-0.5">Unlimited</div>
+                <div id="advisor-map-sub" class="text-[9px] text-slate-500 mt-0.5">OpenStreetMap Fair Use</div>
               </div>
 
-              <div class="p-3.5 rounded-[12px] bg-slate-950/60 border border-slate-800/80">
-                <div class="text-[11px] text-slate-400">Daily Train GPS Budget</div>
-                <div id="advisor-train-limit" class="font-bold text-blue-400 text-base mt-1">Unlimited Timetable</div>
-                <div id="advisor-train-sub" class="text-[10px] text-slate-500 mt-0.5">Corridor Database Sync</div>
+              <div class="p-2.5 rounded-[10px] bg-slate-950/60 border border-slate-800/80">
+                <div class="text-[10px] text-slate-400">Train GPS Budget</div>
+                <div id="advisor-train-limit" class="font-bold text-blue-400 text-xs mt-0.5">Unlimited Timetable</div>
+                <div id="advisor-train-sub" class="text-[9px] text-slate-500 mt-0.5">Corridor Timetable Sync</div>
               </div>
             </div>
 
             <!-- Dynamic Advice Box -->
-            <div id="advisor-note" class="text-xs text-slate-300 p-3.5 rounded-[12px] bg-slate-950/40 border border-slate-800/60 leading-relaxed">
+            <div id="advisor-note" class="text-[10px] text-slate-300 p-2.5 rounded-[10px] bg-slate-950/40 border border-slate-800/60 leading-relaxed">
               Zero setup required. 100% free forever for all phone users without entering any API keys or billing info.
             </div>
           </div>
         </div>
 
         <!-- Tab 2: Map Providers -->
-        <div id="tab-pane-maps" class="settings-tab-pane hidden space-y-5">
+        <div id="tab-pane-maps" class="settings-tab-pane hidden space-y-3">
           <div>
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-1">Select Map Provider</h4>
-            <p class="text-xs text-slate-400 mb-4">Choose your preferred cartographic tile source. Google Maps and MapMyIndia require your own key.</p>
+            <h4 class="text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Select Map Provider</h4>
+            <p class="text-[11px] text-slate-400 mb-2.5">Choose your preferred cartographic tile source.</p>
             
-            <div class="space-y-3">
-              <label class="map-option-card flex items-start gap-3.5 p-4 rounded-[16px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
+            <div class="space-y-2">
+              <label class="map-option-card flex items-start gap-2.5 p-3 rounded-[12px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
                 <input type="radio" name="map_provider" value="osm" checked class="mt-1 text-blue-500 bg-slate-900 border-slate-700 focus:ring-0" />
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-white">OpenStreetMap</span>
-                    <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-950/50 border border-emerald-800/60 px-2 py-0.5 rounded-full">Unlimited Loads</span>
+                    <span class="text-xs font-bold text-white">OpenStreetMap</span>
+                    <span class="text-[9px] text-emerald-400 font-semibold bg-emerald-950/50 border border-emerald-800/60 px-1.5 py-0.2 rounded-full">Unlimited</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-1">Standard global open tiles. Fast, community-driven, and requires zero keys or billing setup.</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Fast, community-driven, zero keys or billing required.</div>
                 </div>
               </label>
 
-              <label class="map-option-card flex items-start gap-3.5 p-4 rounded-[16px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
+              <label class="map-option-card flex items-start gap-2.5 p-3 rounded-[12px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
                 <input type="radio" name="map_provider" value="gmaps" class="mt-1 text-blue-500 bg-slate-900 border-slate-700 focus:ring-0" />
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-white">Google Maps Platform</span>
-                    <span class="text-[10px] text-blue-400 font-semibold bg-blue-950/50 border border-blue-800/60 px-2 py-0.5 rounded-full">~950 Loads / Day Free</span>
+                    <span class="text-xs font-bold text-white">Google Maps Platform</span>
+                    <span class="text-[9px] text-blue-400 font-semibold bg-blue-950/50 border border-blue-800/60 px-1.5 py-0.2 rounded-full">~950 / Day Free</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-1">High fidelity roads & traffic. Enter your API key below ($200 free credit per month).</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">High fidelity roads & traffic. Enter your API key below ($200 free credit/mo).</div>
                 </div>
               </label>
 
-              <label class="map-option-card flex items-start gap-3.5 p-4 rounded-[16px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
+              <label class="map-option-card flex items-start gap-2.5 p-3 rounded-[12px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
                 <input type="radio" name="map_provider" value="mappls" class="mt-1 text-blue-500 bg-slate-900 border-slate-700 focus:ring-0" />
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-white">MapMyIndia Mappls</span>
-                    <span class="text-[10px] text-amber-400 font-semibold bg-amber-950/50 border border-amber-800/60 px-2 py-0.5 rounded-full">~333 Loads / Day Free</span>
+                    <span class="text-xs font-bold text-white">MapMyIndia Mappls</span>
+                    <span class="text-[9px] text-amber-400 font-semibold bg-amber-950/50 border border-amber-800/60 px-1.5 py-0.2 rounded-full">~333 / Day Free</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-1">Hyper-local Indian landmarks, local roads, and railway crossings. Enter your REST key below.</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Hyper-local Indian landmarks & crossings. Enter your REST key below.</div>
                 </div>
               </label>
             </div>
           </div>
 
           <!-- Dynamic Key Inputs for Maps -->
-          <div id="gmaps-input-container" class="hidden p-4 rounded-[16px] bg-slate-900/80 border border-slate-800 space-y-2.5">
+          <div id="gmaps-input-container" class="hidden p-3 rounded-[12px] bg-slate-900/80 border border-slate-800 space-y-1.5">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-200">Google Maps Platform API Key</span>
-              <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" class="text-[11px] text-blue-400 hover:underline">Get key ($200 monthly credit)</a>
+              <span class="text-[11px] font-semibold text-slate-200">Google Maps API Key</span>
+              <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" class="text-[10px] text-blue-400 hover:underline">Get key ($200 free/mo)</a>
             </div>
-            <input type="text" id="gmaps-key-input" placeholder="AIzaSy..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-[12px] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
-            <p class="text-[10px] text-slate-400">Stored locally on your device only. Never sent to any server.</p>
+            <input type="text" id="gmaps-key-input" placeholder="AIzaSy..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-[10px] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+            <p class="text-[9px] text-slate-400">Stored locally on your device only. Never sent to any server.</p>
           </div>
 
-          <div id="mappls-input-container" class="hidden p-4 rounded-[16px] bg-slate-900/80 border border-slate-800 space-y-2.5">
+          <div id="mappls-input-container" class="hidden p-3 rounded-[12px] bg-slate-900/80 border border-slate-800 space-y-1.5">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-200">MapMyIndia Mappls REST Key</span>
-              <a href="https://about.mappls.com/api" target="_blank" class="text-[11px] text-blue-400 hover:underline">Get key (10,000 free req/mo)</a>
+              <span class="text-[11px] font-semibold text-slate-200">MapMyIndia Mappls Key</span>
+              <a href="https://about.mappls.com/api" target="_blank" class="text-[10px] text-blue-400 hover:underline">Get key (10k free/mo)</a>
             </div>
-            <input type="text" id="mappls-key-input" placeholder="Enter Mappls key..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-[12px] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+            <input type="text" id="mappls-key-input" placeholder="Enter Mappls key..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-[10px] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
           </div>
         </div>
 
         <!-- Tab 3: Train GPS -->
-        <div id="tab-pane-trains" class="settings-tab-pane hidden space-y-5">
+        <div id="tab-pane-trains" class="settings-tab-pane hidden space-y-3">
           <div>
-            <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-1">Live Train Tracking Source</h4>
-            <p class="text-xs text-slate-400 mb-4">Choose where train timetables and live GPS tracking statuses are fetched from.</p>
+            <h4 class="text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-1">Live Train Tracking Source</h4>
+            <p class="text-[11px] text-slate-400 mb-2.5">Choose where train timetables and live GPS statuses are fetched from.</p>
             
-            <div class="space-y-3">
-              <label class="train-option-card flex items-start gap-3.5 p-4 rounded-[16px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
+            <div class="space-y-2">
+              <label class="train-option-card flex items-start gap-2.5 p-3 rounded-[12px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
                 <input type="radio" name="train_provider" value="community" checked class="mt-1 text-blue-500 bg-slate-900 border-slate-700 focus:ring-0" />
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-white">Community Corridor</span>
-                    <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-950/50 border border-emerald-800/60 px-2 py-0.5 rounded-full">Unlimited Schedules</span>
+                    <span class="text-xs font-bold text-white">Community Corridor</span>
+                    <span class="text-[9px] text-emerald-400 font-semibold bg-emerald-950/50 border border-emerald-800/60 px-1.5 py-0.2 rounded-full">Unlimited</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-1">Verified trunk timetable schedules & platform boards. Instant access with zero setup.</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Verified trunk timetable schedules & platform boards. Instant access with zero setup.</div>
                 </div>
               </label>
 
-              <label class="train-option-card flex items-start gap-3.5 p-4 rounded-[16px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
+              <label class="train-option-card flex items-start gap-2.5 p-3 rounded-[12px] border border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800/60 transition">
                 <input type="radio" name="train_provider" value="rapidapi" class="mt-1 text-blue-500 bg-slate-900 border-slate-700 focus:ring-0" />
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-white">RapidAPI Indian Railways</span>
-                    <span class="text-[10px] text-blue-400 font-semibold bg-blue-950/50 border border-blue-800/60 px-2 py-0.5 rounded-full">500 Calls / Mo (~16 / Day)</span>
+                    <span class="text-xs font-bold text-white">RapidAPI Indian Railways</span>
+                    <span class="text-[9px] text-blue-400 font-semibold bg-blue-950/50 border border-blue-800/60 px-1.5 py-0.2 rounded-full">500 Calls / Mo</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-1">Real-time GPS train status, delays, and block signal tracker directly on your phone.</div>
+                  <div class="text-[10px] text-slate-400 mt-0.5">Real-time GPS train status, delays, and block signal tracker directly on your phone.</div>
                 </div>
               </label>
             </div>
           </div>
 
           <!-- Dynamic RapidAPI Key Input -->
-          <div id="rapidapi-input-container" class="hidden p-4 rounded-[16px] bg-slate-900/80 border border-slate-800 space-y-2.5">
+          <div id="rapidapi-input-container" class="hidden p-3 rounded-[12px] bg-slate-900/80 border border-slate-800 space-y-1.5">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-200">RapidAPI Key</span>
-              <a href="https://rapidapi.com/hub" target="_blank" class="text-[11px] text-blue-400 hover:underline">Get free key (500 free calls/mo)</a>
+              <span class="text-[11px] font-semibold text-slate-200">RapidAPI Key</span>
+              <a href="https://rapidapi.com/hub" target="_blank" class="text-[10px] text-blue-400 hover:underline">Get free key (500 free calls/mo)</a>
             </div>
-            <input type="text" id="rapidapi-key-input" placeholder="Paste your RapidAPI key..." class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-[12px] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
-            <p class="text-[10px] text-slate-400">Enables live GPS lookup for train numbers directly on your phone.</p>
+            <input type="text" id="rapidapi-key-input" placeholder="Paste your RapidAPI key..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-[10px] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+            <p class="text-[9px] text-slate-400">Enables live GPS lookup for train numbers directly on your phone.</p>
           </div>
         </div>
 
-        <!-- Buttons strictly Save and Cancel -->
-        <div class="pt-5 border-t border-slate-800/80 flex gap-3">
-          <button type="button" id="settings-cancel-btn" class="flex-1 py-3 px-5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-[14px] text-sm font-semibold transition active:scale-95">
+        <!-- Buttons Save and Cancel -->
+        <div class="pt-3 border-t border-slate-800/80 flex gap-2.5 shrink-0">
+          <button type="button" id="settings-cancel-btn" class="flex-1 py-2.5 px-4 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-[12px] text-xs font-semibold transition active:scale-95">
             Cancel
           </button>
-          <button type="submit" id="settings-save-btn" class="flex-1 py-3 px-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-[14px] text-sm shadow-md transition active:scale-95">
+          <button type="submit" id="settings-save-btn" class="flex-1 py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-[12px] text-xs shadow-md transition active:scale-95">
             Save
           </button>
         </div>
@@ -2994,6 +3001,9 @@
       }
     }
 
+    const settingsBackdrop = document.getElementById('settings-backdrop');
+    const settingsCard = document.getElementById('settings-card');
+
     function openSettingsModal() {
       const savedMap = localStorage.getItem('byok_map_provider') || 'osm';
       const savedTrain = localStorage.getItem('byok_train_provider') || 'community';
@@ -3009,12 +3019,43 @@
       if (rapidapiKeyInput) rapidapiKeyInput.value = localStorage.getItem('rapidapi_rail_key') || '';
 
       updateAdvisorMatrix();
-      if (settingsModal) settingsModal.classList.remove('hidden');
+
+      if (settingsBackdrop) {
+        settingsBackdrop.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          settingsBackdrop.classList.remove('opacity-0');
+          settingsBackdrop.classList.add('opacity-100');
+        });
+      }
+
+      if (settingsModal) {
+        settingsModal.classList.remove('hidden');
+      }
+
+      if (settingsCard) {
+        settingsCard.style.transform = '';
+        requestAnimationFrame(() => {
+          settingsCard.classList.remove('translate-y-full');
+        });
+      }
     }
     window.openSettingsModal = openSettingsModal;
 
     function closeSettingsModal() {
-      if (settingsModal) settingsModal.classList.add('hidden');
+      if (settingsCard) {
+        settingsCard.classList.add('translate-y-full');
+      }
+      if (settingsBackdrop) {
+        settingsBackdrop.classList.remove('opacity-100');
+        settingsBackdrop.classList.add('opacity-0');
+        setTimeout(() => {
+          settingsBackdrop.classList.add('hidden');
+        }, 300);
+      }
+      setTimeout(() => {
+        if (settingsModal) settingsModal.classList.add('hidden');
+        if (settingsCard) settingsCard.style.transform = '';
+      }, 300);
     }
     window.closeSettingsModal = closeSettingsModal;
 
@@ -3022,18 +3063,20 @@
     if (settingsCloseX) settingsCloseX.addEventListener('click', closeSettingsModal);
     if (settingsCancelBtn) settingsCancelBtn.addEventListener('click', closeSettingsModal);
 
-    settingsModal.addEventListener('click', (e) => {
-      if (e.target === settingsModal) closeSettingsModal();
-    });
+    if (settingsModal) {
+      settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) closeSettingsModal();
+      });
+    }
 
     // Settings Tab Switching
     document.querySelectorAll('.settings-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const tab = btn.getAttribute('data-tab');
         document.querySelectorAll('.settings-tab-btn').forEach(b => {
-          b.className = 'settings-tab-btn flex-1 py-2 px-3 rounded-[10px] text-xs font-semibold transition text-slate-400 hover:text-white';
+          b.className = 'settings-tab-btn flex-1 py-1.5 px-2 rounded-[8px] text-[11px] font-semibold transition text-slate-400 hover:text-white';
         });
-        btn.className = 'settings-tab-btn flex-1 py-2 px-3 rounded-[10px] text-xs font-semibold transition text-white bg-blue-600/90 shadow-sm';
+        btn.className = 'settings-tab-btn flex-1 py-1.5 px-2 rounded-[8px] text-[11px] font-semibold transition text-white bg-blue-600/90 shadow-sm';
 
         document.querySelectorAll('.settings-tab-pane').forEach(pane => {
           pane.classList.add('hidden');
@@ -3675,6 +3718,45 @@
       sheet.addEventListener('touchmove', onTouchMove, { passive: false });
       sheet.addEventListener('touchend', onTouchEnd, { passive: true });
       sheet.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+      // Enable swipe-down dismiss on settings bottom sheet as well
+      const settingsSheet = document.getElementById('settings-card');
+      const settingsHandle = document.getElementById('settings-drag-handle');
+      if (settingsSheet) {
+        let setStartY = 0, setCurrY = 0, setDragging = false, setHandleTouch = false;
+        settingsSheet.addEventListener('touchstart', (e) => {
+          if (e.touches.length !== 1) return;
+          setStartY = e.touches[0].clientY;
+          setCurrY = setStartY;
+          setHandleTouch = settingsHandle ? settingsHandle.contains(e.target) : false;
+          if (setHandleTouch || settingsSheet.scrollTop <= 2) {
+            setDragging = true;
+            settingsSheet.style.transition = 'none';
+          }
+        }, { passive: false });
+
+        settingsSheet.addEventListener('touchmove', (e) => {
+          if (!setDragging || e.touches.length !== 1) return;
+          const deltaY = e.touches[0].clientY - setStartY;
+          if (deltaY > 0) {
+            if (settingsSheet.scrollTop <= 0) e.preventDefault();
+            setCurrY = e.touches[0].clientY;
+            settingsSheet.style.transform = `translateY(${deltaY}px)`;
+          }
+        }, { passive: false });
+
+        settingsSheet.addEventListener('touchend', () => {
+          if (!setDragging) return;
+          setDragging = false;
+          const deltaY = setCurrY - setStartY;
+          settingsSheet.style.transition = 'transform 0.35s cubic-bezier(0.32, 0.72, 0, 1)';
+          if (deltaY > 100) {
+            closeSettingsModal();
+          } else {
+            settingsSheet.style.transform = 'translateY(0)';
+          }
+        }, { passive: true });
+      }
     })();
 
     // Initial Load
